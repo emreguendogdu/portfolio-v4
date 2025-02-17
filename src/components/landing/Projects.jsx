@@ -98,6 +98,7 @@ const ProjectImage = ({ project }) => {
         className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
       >
         <source src={`/images/ethera-supplements.mp4`} type="video/mp4" />
+        <source src={`/images/ethera-supplements.webm`} type="video/webm" />
         Your browser does not support the video tag.
       </video>
     )
