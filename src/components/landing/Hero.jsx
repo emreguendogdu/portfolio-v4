@@ -77,7 +77,7 @@ export default function HeroFlex() {
               id="right-div"
               className="relative md:flex md:items-end md:justify-end"
             >
-              <ShinyButton />
+              <ShinyButton>Open to Work</ShinyButton>
             </div>
           </div>
           <div className="absolute bottom-4 left-1/2 -translate-y-1/2 text-5xl text-neutral-200">

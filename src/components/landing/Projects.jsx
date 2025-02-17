@@ -9,6 +9,7 @@ import { useState, useRef } from "react"
 import { projects } from "../../data"
 import { anim, kebabCase, textToLetter } from "../../utils/utils"
 import { useEffect } from "react"
+import ShinyButton from "../ui/ShinyButton"
 
 // import { ArrowRight } from "../../icons/ArrowRight"
 // import useMousePosition from "../../hooks/useMousePosition"
@@ -86,14 +87,24 @@ const ProjectImage = ({ project }) => {
     console.log(window.innerHeight)
   }, [window.innerHeight])
 
-  return (
-    <motion.a
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="relative w-full h-full overflow-hidden"
-      {...anim(imageVariants)}
-    >
+  function Video() {
+    return (
+      <video
+        poster={`/images/ethera-supplements-thumbnail.webp`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
+      >
+        <source src={`/images/ethera-supplements.mp4`} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    )
+  }
+
+  function Image() {
+    return (
       <img
         src={`/images/${kebabCase(project.name)}${
           project.name === "Design Challenges" ? ".gif" : ".webp"
@@ -103,6 +114,18 @@ const ProjectImage = ({ project }) => {
         loading="lazy"
         decoding="async"
       />
+    )
+  }
+
+  return (
+    <motion.a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative w-full h-full overflow-hidden"
+      {...anim(imageVariants)}
+    >
+      {project.name === "Ethera Supplements" ? <Video /> : <Image />}
       {/* Mouse Tracker */}
       {/* <AnimatePresence mode="wait">
           {isHovered && (
@@ -252,14 +275,13 @@ export default function Projects() {
           <div className="relative bg-blue-500 w-full h-full px-4 py-2 md:px-12 md:py-4"></div>
         </div> */}
       </AnimatePresence>
-      <a
-        className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-white text-black rounded-2xl px-4 py-2 hover:bg-purple-800 hover:text-white transition-all"
+
+      <ShinyButton
         href="https://github.com/emreguendogdu/"
-        target="_blank"
-        rel="noopener noreferrer"
+        className="!absolute -bottom-1 left-1/2 -translate-x-1/2 w-fit"
       >
         Find More
-      </a>
+      </ShinyButton>
     </section>
   )
 }
