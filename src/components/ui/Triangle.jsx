@@ -6,7 +6,7 @@ export default function Triangle(props) {
   return (
     <div className={props.className}>
       <motion.div
-        className="border-solid border-transparent"
+        className="border-solid border-transparent origin-center"
         style={{
           ...props.style,
           borderWidth: `0 var(--width) calc(var(--width) * 1.732) var(--width)`,

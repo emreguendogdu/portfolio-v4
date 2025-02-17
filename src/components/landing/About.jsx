@@ -45,7 +45,7 @@ export default function About() {
   const triangleWidth = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.TRIANGLE.END],
-    ["200px", isMobile ? "800px" : "2400px"]
+    ["200px", isMobile ? "1000px" : "2000px"]
   )
 
   const bodyY = useTransform(
@@ -77,6 +77,9 @@ export default function About() {
       ref={targetRef}
       className="min-h-[400vh] bg-black border-t border-white/30 rounded-t-[40px] text-white relative z-10 select-none"
     >
+      <p className="subheading px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY absolute right-0 top-0">
+        (About)
+      </p>
       <div className="sticky top-0 h-screen flex justify-center items-center overflow-hidden">
         <motion.div
           style={{

@@ -154,20 +154,17 @@ const Project = ({ projectIndex }) => {
         ref={targetRef}
         key={projectIndex}
       >
-        <div className="relative w-full h-full flex flex-col gap-8 items-center py-16 md:py-12 select-none px-sectionX-m md:px-sectionX box-border">
+        <div className="relative w-full h-full flex flex-col gap-8 items-center py-16 md:py-12 select-none box-border">
           <div
             id="content-top"
             className="relative text-center flex w-full justify-between"
           >
             <p
               id="project-number"
-              className="relative inline-block h0 leading-[0.8] h-fit overflow-hidden w-fit order-2"
+              className="relative inline-block h0 leading-[0.8] overflow-y-hidden no-scrollbar w-fit order-2 [&>span]:relative [&>span]:inline-block [&>span]:w-[0.9ch]"
             >
-              <span className="relative inline-block w-[0.85ch] h-fit">0</span>
-              <motion.span
-                className="relative inline-block w-[1ch] h-fit"
-                {...anim(projectNumberVariants)}
-              >
+              <span>0</span>
+              <motion.span {...anim(projectNumberVariants)}>
                 {projectIndex + 1}
               </motion.span>
             </p>
@@ -259,9 +256,10 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className={`relative bg-black text-white flex min-h-[600vh] md:min-h-[1200vh] flex-col gap-16 snap-mandatory snap-y -mt-[100vh] z-10 mb-4`}
+      className={`relative bg-black px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY text-white min-h-[750vh] md:min-h-[1200vh] snap-mandatory snap-y -mt-[100vh] z-10 mb-4`}
       ref={targetRef}
     >
+      <p className="subheading">(Projects)</p>
       <AnimatePresence>
         <Project
           projectIndex={PROJECT_ON_VIEW}
