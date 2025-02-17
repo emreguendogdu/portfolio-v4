@@ -96,6 +96,7 @@ const ProjectImage = ({ project }) => {
         muted
         playsInline
         className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
+        preload="none"
       >
         <source src={`/images/ethera-supplements.mp4`} type="video/mp4" />
         <source src={`/images/ethera-supplements.webm`} type="video/webm" />
