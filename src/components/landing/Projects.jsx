@@ -8,7 +8,6 @@ import {
 import { useState, useRef } from "react"
 import { projects } from "../../data"
 import { anim, kebabCase, textToLetter } from "../../utils/utils"
-import { useEffect } from "react"
 import ShinyButton from "../ui/ShinyButton"
 
 // import { ArrowRight } from "../../icons/ArrowRight"
@@ -83,14 +82,10 @@ const ProjectImage = ({ project }) => {
   // const [isHovered, setIsHovered] = useState(false)
   // const { x, y } = useMousePosition()
 
-  useEffect(() => {
-    console.log(window.innerHeight)
-  }, [window.innerHeight])
-
   function Video() {
     return (
       <video
-        poster={`/images/ethera-supplements-thumbnail.webp`}
+        poster={`/assets/ethera-supplements-thumbnail.webp`}
         autoPlay
         loop
         muted
@@ -98,8 +93,8 @@ const ProjectImage = ({ project }) => {
         className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
         preload="none"
       >
-        <source src={`/images/ethera-supplements.mp4`} type="video/mp4" />
-        <source src={`/images/ethera-supplements.webm`} type="video/webm" />
+        <source src={`/assets/ethera-supplements.mp4`} type="video/mp4" />
+        <source src={`/assets/ethera-supplements.webm`} type="video/webm" />
         Your browser does not support the video tag.
       </video>
     )
@@ -108,7 +103,7 @@ const ProjectImage = ({ project }) => {
   function Image() {
     return (
       <img
-        src={`/images/${kebabCase(project.name)}${
+        src={`/assets/${kebabCase(project.name)}${
           project.name === "Design Challenges" ? ".gif" : ".webp"
         }`}
         alt={project.name}

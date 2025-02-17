@@ -2,50 +2,37 @@ import { animate, motion } from "motion/react"
 import { useEffect } from "react"
 import ShinyButton from "../ui/ShinyButton"
 import { MouseScrollDownIcon } from "../ui/Icons"
+import StarryHeroBackground from "./StarryBackground"
 
 const animation = {
   opacity: [0, 1],
   translateX: ["50%", "0%"],
 }
-const transition = (at, delay = 0) => {
+const transition = (duration = 1.5, delay = 0.5) => {
   return {
-    duration: 1.5,
-    delay: 0.5 + delay,
+    duration,
+    delay,
     ease: [0.76, 0, 0.24, 1],
-    at,
   }
 }
 
 export default function HeroFlex() {
   useEffect(() => {
-    animate("#hero h1", animation, transition(0))
-    animate("#hero h2", animation, transition(0.1))
-    animate("header", animation, transition(0.1))
-    animate(
-      "#left-div",
-      { opacity: [0, 1] },
-      {
-        duration: 0.5,
-        delay: 1.25,
-        ease: [0.76, 0, 0.24, 1],
-      }
-    )
-    animate(
-      "#right-div",
-      { opacity: [0, 1] },
-      {
-        duration: 0.5,
-        delay: 1.5,
-        ease: [0.76, 0, 0.24, 1],
-      }
-    )
+    animate("#hero h1", animation, transition())
+    animate("#hero h2", animation, transition())
+    animate("header", animation, transition())
+    animate("#right-div", animation, transition(1, 0.75))
+    animate("#left-div", animation, transition(1, 1))
+    animate("#scroll-down-icon", animation, transition(1, 0.95))
+    animate("#starry-bg", { opacity: [0, 1] }, transition(3, 0.5))
   }, [])
 
   return (
     <>
+      <StarryHeroBackground />
       <section
         id="hero"
-        className="relative bg-[#000000] text-[#f7f7f7] px-8 md:px-12"
+        className="relative bg-transparent text-[#f7f7f7] px-8 md:px-12"
       >
         <motion.div
           className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:py-48 gap-8"
@@ -80,7 +67,10 @@ export default function HeroFlex() {
               <ShinyButton>Open to Work</ShinyButton>
             </div>
           </div>
-          <div className="absolute bottom-4 left-1/2 -translate-y-1/2 text-5xl text-neutral-200">
+          <div
+            className="absolute bottom-4 left-1/2 -translate-y-1/2 text-5xl text-neutral-200"
+            id="scroll-down-icon"
+          >
             <MouseScrollDownIcon />
           </div>
         </motion.div>

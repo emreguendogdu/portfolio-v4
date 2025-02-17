@@ -1,20 +1,7 @@
 import { useRef } from "react"
-import {
-  useScroll,
-  motion,
-  useTransform,
-  easeOut,
-  useMotionValueEvent,
-} from "motion/react"
+import { useScroll, motion, useTransform, easeOut } from "motion/react"
 import Triangle from "../ui/Triangle"
 import useMatchMedia from "../../hooks/useMatchMedia"
-import { anim } from "../../utils/utils"
-import { useEffect } from "react"
-
-const BASE = {
-  ENTRY_START: 0.125, // Base entry start point
-  GAP: 0.2, // Default gap between animations
-}
 
 const TIMELINE = {
   ENTRY: {
@@ -42,10 +29,6 @@ export default function About() {
   })
 
   const isMobile = useMatchMedia("(max-width: 768px)")
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log(latest)
-  })
 
   const entryOpacity = useTransform(
     scrollYProgress,
@@ -92,7 +75,7 @@ export default function About() {
     <section
       id="about"
       ref={targetRef}
-      className="min-h-[400vh] bg-[#0f0f0f] border-t border-white/30 rounded-t-[40px] text-white relative z-10 select-none"
+      className="min-h-[400vh] bg-black border-t border-white/30 rounded-t-[40px] text-white relative z-10 select-none"
     >
       <div className="sticky top-0 h-screen flex justify-center items-center overflow-hidden">
         <motion.div
@@ -109,7 +92,7 @@ export default function About() {
 
         <Triangle
           style={{ "--width": triangleWidth, opacity: 0.2 }}
-          section="about"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-[#e4e4e6]"
         />
 
         <motion.div
