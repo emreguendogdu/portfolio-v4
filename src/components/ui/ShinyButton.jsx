@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { motion } from "motion/react"
 
 export default function ShinyButton({
@@ -25,12 +26,12 @@ export default function ShinyButton({
           mass: 0.1,
         },
       }}
-      className={`block px-6 py-2 rounded-md relative radial-gradient ${className}`}
+      className={`block px-6 py-2 rounded-md relative radial-gradient w-fit ${className}`}
       href={href}
       target="_blank"
       rel="noreferrer noopenner"
     >
-      <span className="text-neutral-100 tracking-wide font-extralight text-xl uppercase h-full w-full block relative linear-mask">
+      <span className="text-neutral-100 tracking-wide font-extralight text-sm md:text-xl uppercase h-full w-full block relative linear-mask">
         {children}
       </span>
       <span className="block absolute inset-0 rounded-3xl p-px linear-overlay" />

@@ -65,7 +65,7 @@ export default function HeroFlex() {
               Front End Developer
             </h2>
           </div>
-          <div className="relative w-full flex flex-col md:flex-row md:justify-between">
+          <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
             <div id="left-div" className="relative">
               <p className="w-full text-left md:w-[50%] md:text-justify font-extralight">
                 Hi, I create web projects with React and Next.js. I&apos;m
