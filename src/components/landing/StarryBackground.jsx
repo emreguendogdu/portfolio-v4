@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "motion/react"
 
-const starCount = 400
+const starCount = 600
 
 export default function StarryBackground() {
   const [stars, setStars] = useState([])
@@ -13,10 +13,10 @@ export default function StarryBackground() {
         id: i,
         top: `${Math.random() * 100}vh`,
         left: `${Math.random() * 100}vw`,
-        duration: Math.random() * 10 + 3,
+        duration: Math.random() * 5 + 3,
         delay: Math.random() * 5,
-        width: `${Math.random() * 2}px`,
-        height: `${Math.random() * 2}px`,
+        width: `${Math.random() * 2.5}px`,
+        height: `${Math.random() * 2.5}px`,
       }))
     )
   }, [])
@@ -49,7 +49,7 @@ export default function StarryBackground() {
                   height: star.height,
                 }}
                 initial={{ opacity: 1 }}
-                animate={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
                 transition={{
                   duration: star.duration,
                   ease: "easeInOut",
