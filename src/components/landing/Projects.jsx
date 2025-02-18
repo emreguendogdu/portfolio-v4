@@ -176,9 +176,10 @@ const Project = ({ projectIndex }) => {
                 {textToLetter(project.name, textVariants)}
               </h2>
               <div className="w-full flex gap-2">
-                <p className="text-sm md:text-lg uppercase font-medium overflow-y-hidden">
+                <p className="text-sm md:text-base uppercase font-light overflow-y-hidden">
                   {textToLetter("Design & Development", textVariants)}
                 </p>
+                {/* Line around */}
                 <div className="relative flex-1">
                   <motion.div
                     className="absolute w-full h-[1px] bg-neutral-700 right-0 top-1/2 -translate-y-[100%] origin-right"
@@ -199,7 +200,7 @@ const Project = ({ projectIndex }) => {
                     }}
                   />
                 </div>
-                <p className="text-sm md:text-lg uppercase font-medium overflow-y-hidden">
+                <p className="text-sm md:text-base uppercase font-light overflow-y-hidden">
                   {textToLetter(String(project.year), textVariants)}
                 </p>
               </div>
