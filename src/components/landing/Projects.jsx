@@ -161,10 +161,10 @@ const Project = ({ projectIndex }) => {
           >
             <p
               id="project-number"
-              className="relative inline-block h0 leading-[0.8] overflow-y-hidden no-scrollbar w-fit order-2 [&>span]:relative [&>span]:inline-block [&>span]:w-[0.9ch]"
+              className="relative inline-block h0 leading-[0.8] overflow-hidden order-2 [&>span]:relative [&>span]:inline-block"
             >
-              <span>0</span>
-              <motion.span {...anim(projectNumberVariants)}>
+              <span className="w-[0.85ch]">0</span>
+              <motion.span {...anim(projectNumberVariants)} className="w-[1ch]">
                 {projectIndex + 1}
               </motion.span>
             </p>
