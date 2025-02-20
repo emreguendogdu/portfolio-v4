@@ -2,6 +2,7 @@
 import {
   AnimatePresence,
   motion,
+  useInView,
   useMotionValueEvent,
   useScroll,
 } from "motion/react"
@@ -9,6 +10,7 @@ import { useState, useRef } from "react"
 import { projects } from "../../data"
 import { anim, kebabCase, textToLetter } from "../../utils/utils"
 import ShinyButton from "../ui/ShinyButton"
+import { useEffect } from "react"
 
 // import { ArrowRight } from "../../icons/ArrowRight"
 // import useMousePosition from "../../hooks/useMousePosition"
@@ -82,21 +84,43 @@ const ProjectImage = ({ project }) => {
   // const [isHovered, setIsHovered] = useState(false)
   // const { x, y } = useMousePosition()
 
+  const videoContainerRef = useRef(null)
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const videoElement = videoRef.current
+    if (!videoElement) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        entry.isIntersecting ? videoElement.play() : videoElement.load()
+      },
+      {
+        threshold: 0.25, // Play when 25% is visible
+      }
+    )
+
+    observer.observe(videoElement)
+    return () => observer.disconnect()
+  }, [])
+
   function Video() {
     return (
-      <video
-        poster={`/assets/ethera-supplements-thumbnail.webp`}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
-        preload="none"
-      >
-        <source src={`/assets/ethera-supplements.mp4`} type="video/mp4" />
-        <source src={`/assets/ethera-supplements.webm`} type="video/webm" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="relative w-full h-full" ref={videoContainerRef}>
+        <video
+          poster={`/assets/ethera-supplements-thumbnail.webp`}
+          loop
+          muted
+          playsInline
+          className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
+          preload="none"
+          ref={videoRef}
+        >
+          <source src={`/assets/ethera-supplements.mp4`} type="video/mp4" />
+          <source src={`/assets/ethera-supplements.webm`} type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
     )
   }
 
