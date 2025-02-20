@@ -83,7 +83,6 @@ const ProjectImage = ({ project }) => {
   // const [isHovered, setIsHovered] = useState(false)
   // const { x, y } = useMousePosition()
 
-  const videoContainerRef = useRef(null)
   const videoRef = useRef(null)
 
   useEffect(() => {
@@ -105,7 +104,7 @@ const ProjectImage = ({ project }) => {
 
   function Video() {
     return (
-      <div className="relative w-full h-full" ref={videoContainerRef}>
+      <div className="relative w-full h-full">
         <video
           poster={`/assets/ethera-supplements-thumbnail.webp`}
           loop
