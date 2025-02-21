@@ -27,7 +27,7 @@ const SVG = ({ width, height }) => {
     },
     animate: {
       left: "-100vw",
-      transition: { duration: 1.5, delay: 0.5, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 1.5, delay: 0, ease: [0.76, 0, 0.24, 1] },
     },
   }
 
@@ -35,7 +35,7 @@ const SVG = ({ width, height }) => {
     initial: { d: initialPath },
     animate: {
       d: targetPath,
-      transition: { duration: 0.5, delay: 1, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 0.5, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
     },
   }
 

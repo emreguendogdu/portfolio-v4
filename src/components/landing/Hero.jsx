@@ -6,9 +6,9 @@ import StarryHeroBackground from "./StarryBackground"
 
 const animation = {
   opacity: [0, 1],
-  translateX: ["50%", "0%"],
+  x: ["100%", "0%"],
 }
-const transition = (duration = 1.5, delay = 0.5) => {
+const transition = (duration = 1.5, delay = 0) => {
   return {
     duration,
     delay,
@@ -16,15 +16,19 @@ const transition = (duration = 1.5, delay = 0.5) => {
   }
 }
 
-export default function HeroFlex() {
+export default function Hero() {
   useEffect(() => {
-    animate("#hero h1", animation, transition())
-    animate("#hero h2", animation, transition())
-    animate("header", animation, transition())
-    animate("#right-div", animation, transition(1, 0.65))
-    animate("#left-div", animation, transition(1, 0.85))
-    animate("#scroll-down-icon", animation, transition(1, 0.95))
-    animate("#starry-bg", { opacity: [0, 1] }, transition(3, 0.5))
+    animate("#hero h1", animation, transition(1.5, 0.1))
+    animate("#hero h2", animation, transition(1.5, 0.1))
+    animate("header", { opacity: [0, 1], y: ["-100%", 0] }, transition(1, 1.25))
+    animate("#right-div", { opacity: [0, 1] }, transition(1, 1))
+    animate("#left-div", { opacity: [0, 1] }, transition(1, 1))
+    animate(
+      "#scroll-down-icon",
+      { opacity: [0, 1], y: ["100%", 0] },
+      transition(1, 1.15)
+    )
+    animate("#starry-bg", { opacity: [0, 1] }, transition(2))
   }, [])
 
   return (

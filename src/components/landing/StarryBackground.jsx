@@ -22,7 +22,10 @@ export default function StarryBackground() {
   }, [])
 
   return (
-    <section className="absolute overflow-hidden w-full h-screen bg-black -z-10" id="starry-bg">
+    <section
+      className="absolute overflow-hidden w-full h-screen bg-black -z-10"
+      id="starry-bg"
+    >
       {/* Moving Space Background */}
       <div className="flex w-[200vw]">
         {[0, 1].map((_, index) => (
