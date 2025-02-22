@@ -11,9 +11,6 @@ import { anim, kebabCase, textToLetter } from "../../utils/utils"
 import ShinyButton from "../ui/ShinyButton"
 import { useEffect } from "react"
 
-// import { ArrowRight } from "../../icons/ArrowRight"
-// import useMousePosition from "../../hooks/useMousePosition"
-
 const easeInQuint = [0.64, 0, 0.78, 0]
 const easeOutQuint = [0.22, 1, 0.36, 1]
 
@@ -80,9 +77,6 @@ const imageVariants = {
 }
 
 const ProjectImage = ({ project }) => {
-  // const [isHovered, setIsHovered] = useState(false)
-  // const { x, y } = useMousePosition()
-
   const videoRef = useRef(null)
 
   useEffect(() => {
@@ -145,22 +139,6 @@ const ProjectImage = ({ project }) => {
       {...anim(imageVariants)}
     >
       {project.name === "Ethera Supplements" ? <Video /> : <Image />}
-      {/* Mouse Tracker */}
-      {/* <AnimatePresence mode="wait">
-          {isHovered && (
-            <motion.div
-              className="absolute flex items-center justify-center bg-neutral-100 text-black px-4 py-2 rounded-lg pointer-events-none select-none cursor-pointer -translate-y-1/2 -translate-x-full"
-              style={{ left: x, top: y }}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              transition={{ duration: 0.25, type: "tween", ease: "backOut" }}
-            >
-              View
-              <ArrowRight className="ml-1" />
-            </motion.div>
-          )}
-        </AnimatePresence> */}
     </motion.a>
   )
 }
@@ -246,7 +224,6 @@ const Project = ({ projectIndex }) => {
               }}
             />
           </div>
-          {/* <div className="w-full h-full bg-red-500"></div> */}
           <ProjectImage project={project} />
         </div>
       </article>
@@ -258,12 +235,9 @@ export default function Projects() {
   const targetRef = useRef()
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    // offset: ["start end", "start start"],
   })
   const [PROJECT_ON_VIEW, SET_PROJECT_ON_VIEW] = useState(0)
   const eachProjectsScrollYProgressSize = 1 / projects.length
-  // 1 / projects.length = When the index (or all items) changes
-  // 0.33 for each project
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest === 1) return
@@ -288,10 +262,6 @@ export default function Projects() {
           projectIndex={PROJECT_ON_VIEW}
           globalYProgress={scrollYProgress}
         />
-        {/* Mouse event listener test (to fix onMouseLeave position [0, 0] issue on element changing)  */}
-        {/* <div className="fixed left-0 right-0 bottom-0 h-[63%]">
-          <div className="relative bg-blue-500 w-full h-full px-4 py-2 md:px-12 md:py-4"></div>
-        </div> */}
       </AnimatePresence>
 
       <ShinyButton
