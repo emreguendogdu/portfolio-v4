@@ -104,7 +104,7 @@ const ProjectImage = ({ project }) => {
           loop
           muted
           playsInline
-          className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
+          className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
           preload="none"
           ref={videoRef}
         >
@@ -123,7 +123,7 @@ const ProjectImage = ({ project }) => {
           project.name === "Design Challenges" ? ".gif" : ".webp"
         }`}
         alt={project.name}
-        className="relative w-full h-full object-scale-down object-center bg-[#111111] cursor-pointer"
+        className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
         loading="lazy"
         decoding="async"
       />

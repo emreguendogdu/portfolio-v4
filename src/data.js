@@ -26,19 +26,19 @@ export const projects = [
 export const pageNavigations = [
   {
     name: "Home",
-    link: "/",
+    href: "/",
   },
   {
     name: "About",
-    link: "#about",
+    href: "#about",
   },
   {
     name: "Projects",
-    link: "#projects",
+    href: "#projects",
   },
   {
     name: "Contact",
-    link: "#contact",
+    href: "#contact",
   },
 ]
 
