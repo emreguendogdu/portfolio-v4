@@ -4,8 +4,9 @@ import { useEffect } from "react"
 import { anim } from "../../utils/utils"
 import { useScrollContext } from "../../contexts/ScrollContext"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
+import { useState } from "react"
 
-const SVG = ({ width, height }) => {
+const SVG = ({ width, height, setCompleted }) => {
   const initialPath = `
     M 0 0
     Q -300 ${height / 2} 0 ${height}
@@ -48,10 +49,7 @@ const SVG = ({ width, height }) => {
       <motion.path
         {...anim(curve)}
         fill="var(--color-secondary)"
-        // Test style
-        // style={{
-        //   transform: "scale(0.25) translateX(600px) translateY(600px)",
-        // }}
+        onAnimationComplete={() => setCompleted(true)}
       />
     </motion.svg>
   )
@@ -59,13 +57,14 @@ const SVG = ({ width, height }) => {
 
 export default function Preloader() {
   const dimensions = useWindowDimensions()
+  const [completed, setCompleted] = useState(false)
 
   // Scroll to top on load
   useEffect(() => {
     if (!window) return
     setTimeout(function () {
       window.scrollTo(0, 0)
-    }, 200)
+    }, 100)
   }, [])
 
   // Block scrolling, reactivate when animation ends
@@ -73,16 +72,28 @@ export default function Preloader() {
 
   useEffect(() => {
     setAllowScroll(false)
-    // setTimeout(() => setAllowScroll(true), 2000)
-  }, [setAllowScroll])
+    if (completed) {
+      setAllowScroll(true)
+    }
+  }, [setAllowScroll, completed])
 
   return (
-    <div id="preloader" className="absolute inset-0 h-screen w-full">
+    <motion.div
+      id="preloader"
+      className="absolute inset-0 h-screen w-full"
+      initial={{ display: "block" }}
+      animate={{
+        display: completed ? "none" : "block",
+        transition: { duration: 1, delay: 0.35 },
+      }}
+    >
       <div
         className="bg-secondary opacity-0"
         style={{ opacity: dimensions.width > 0 && 1 }}
       ></div>
-      {dimensions.width > 0 && <SVG {...dimensions} />}
-    </div>
+      {dimensions.width > 0 && (
+        <SVG {...dimensions} setCompleted={setCompleted} />
+      )}
+    </motion.div>
   )
 }

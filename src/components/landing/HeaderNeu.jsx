@@ -1,5 +1,7 @@
 import { motion } from "motion/react"
 import LocalTime from "../ui/LocalTime"
+import { useState } from "react"
+import { useEffect } from "react"
 
 function Bars(props) {
   return (
@@ -19,63 +21,76 @@ function Bars(props) {
 }
 
 export default function HeaderNeu() {
-  const handleScrollToContact = (e) => {
-    e.preventDefault()
-    const contactSection = document.getElementById("contact")
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: "smooth",
-        block: "end", // Ensures footer is fully in view
-      })
-    }
-  }
+  const [scrolled, setScrolled] = useState(false)
 
-  // TODO: FIX - Scrolling to Contact not working
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  })
 
   return (
     <header
-      className="absolute top-0 left-0 right-0 flex justify-between px-8 md:px-12 py-4 md:py-4 z-20"
+      className="fixed top-0 left-0 right-0 px-8 md:px-12 py-4 md:py-4 z-20"
       id="landing-header"
     >
-      <div className="md:flex md:gap-8">
-        <a href="/" className="nav-link">
-          emregnd<sup>®</sup>
-        </a>
-        <p className="nav-link select-none hover:text-neutral-400">
-          <LocalTime />
-        </p>
-        <a
-          href="mailto:hello@emregnd.com"
-          target="_blank"
-          rel="noreferrer noopenner"
-          className="nav-link"
-        >
-          hello@emregnd.com
-        </a>
-      </div>
-      <nav>
-        <ul className="flex flex-col md:flex-row">
-          <li>
-            <a href="/" className="nav-link">
-              Home,&nbsp;
-            </a>
-          </li>
-          <li>
-            <a href="#projects" className="nav-link">
-              Projects,&nbsp;
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              className="nav-link"
-              onClick={handleScrollToContact}
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <motion.div
+        className="relative flex justify-between"
+        animate={{
+          opacity: scrolled ? 0 : 1,
+          y: scrolled ? "-100%" : 0,
+          transition: { duration: 0.75, ease: "easeOut" },
+        }}
+      >
+        <div className="md:flex md:gap-8">
+          <a href="/" className="nav-link">
+            emregnd<sup>®</sup>
+          </a>
+          <p className="nav-link select-none hover:text-neutral-400">
+            <LocalTime />
+          </p>
+          <a
+            href="mailto:hello@emregnd.com"
+            target="_blank"
+            rel="noreferrer noopenner"
+            className="nav-link"
+          >
+            hello@emregnd.com
+          </a>
+        </div>
+        <nav>
+          <ul className="flex flex-col md:flex-row">
+            <li>
+              <a href="/" className="nav-link">
+                Home,&nbsp;
+              </a>
+            </li>
+            <li>
+              <a href="#projects" className="nav-link">
+                Projects,&nbsp;
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className="nav-link">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </motion.div>
+      <motion.div
+        className="absolute w-10 h-10 bg-red-500 right-0 top-0 mx-8 md:mx-12 my-4 md:my-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: scrolled ? 1 : 0 }}
+      ></motion.div>
     </header>
   )
 }

@@ -23,6 +23,35 @@ export const projects = [
   },
 ]
 
+export const pageNavigations = [
+  {
+    name: "Home",
+    link: "/",
+  },
+  {
+    name: "About",
+    link: "#about",
+  },
+  {
+    name: "Projects",
+    link: "#projects",
+  },
+  {
+    name: "Contact",
+    link: "#contact",
+  },
+]
+
+export const socials = [
+  { name: "CV", href: "/assets/Emre_Gundogdu_CV_2025.pdf" },
+  { name: "Linkedin", href: "https://linkedin.com/in/emregnd/" },
+  {
+    name: "Github",
+    href: "https://github.com/emregnd/",
+  },
+  { name: "hello@emregnd.com", href: "mailto:hello@emregnd.com" },
+]
+
 export const techStack = [
   "HTML",
   "CSS",

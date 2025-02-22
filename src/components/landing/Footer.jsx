@@ -1,36 +1,25 @@
+import { socials } from "../../data"
 import LocalTime from "../ui/LocalTime"
 
 export default function Footer() {
   return (
-    <footer
-      className="flex items-end bg-black text-white text-sm"
-      id="contact"
-    >
+    <footer id="contact" className="flex items-end bg-black text-white text-sm">
       <div className="w-full flex justify-between items-start md:items-end border-t border-t-neutral-800 py-4 px-sectionX-m md:px-sectionX">
-        <div className="[&>a]:uppercase flex flex-col md:flex-row md:gap-4">
-          <a
-            href="https://linkedin.com/in/emregnd/"
-            rel="noreferrer noopenner"
-            target="_blank"
-          >
-            Linkedin
-          </a>
-          <a
-            href="https://github.com/emregnd/"
-            rel="noreferrer noopenner"
-            target="_blank"
-          >
-            Github
-          </a>
-          <a
-            href="mailto:hello@emregnd.com"
-            rel="noreferrer noopenner"
-            target="_blank"
-          >
-            hello@emregnd.com
-          </a>
-        </div>
-        <div className="md:flex md:gap-4">
+        <ul className="[&_a]:uppercase flex flex-col md:flex-row md:gap-4">
+          {socials.map((social, index) => (
+            <li key={index}>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link"
+              >
+                {social.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="md:flex md:gap-4 nav-link pointer-events-none">
           <LocalTime />
           <p className="select-none">© 2025</p>
         </div>
