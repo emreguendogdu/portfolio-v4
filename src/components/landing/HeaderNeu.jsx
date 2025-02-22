@@ -2,6 +2,7 @@ import { motion } from "motion/react"
 import LocalTime from "../ui/LocalTime"
 import { useState } from "react"
 import { useEffect } from "react"
+import { pageNavigations, socials } from "../../data"
 
 function Bars(props) {
   return (
@@ -22,7 +23,9 @@ function Bars(props) {
 
 export default function HeaderNeu() {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
+  // Scroll event listener
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -36,6 +39,12 @@ export default function HeaderNeu() {
 
     return () => window.removeEventListener("scroll", handleScroll)
   })
+
+  useEffect(() => {
+    if (menuOpen) {
+      if (!scrolled) setMenuOpen(false)
+    }
+  }, [scrolled, menuOpen])
 
   return (
     <header
@@ -87,10 +96,41 @@ export default function HeaderNeu() {
         </nav>
       </motion.div>
       <motion.div
-        className="absolute w-10 h-10 bg-red-500 right-0 top-0 mx-8 md:mx-12 my-4 md:my-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrolled ? 1 : 0 }}
-      ></motion.div>
+        className="absolute w-12 h-12 bg-neutral-900 right-0 top-0 mx-8 md:mx-12 my-4 md:my-6 rounded-full flex items-center justify-center text-2xl text-white/50"
+        animate={{
+          opacity: scrolled ? 1 : 0,
+          scale: scrolled ? 1 : 0,
+          transition: { duration: 0.5, delay: 0.1, ease: "easeOut" },
+        }}
+      >
+        <Bars
+          className="cursor-pointer z-20"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        />
+        <motion.div
+          className="absolute top-0 right-0 bg-neutral-900 w-80 h-80 rounded-bl-full origin-top-right flex justify-center"
+          animate={{
+            opacity: menuOpen ? 1 : 0,
+            scale: menuOpen ? 1 : 0,
+            transition: { duration: 0.5, ease: "easeOut" },
+          }}
+        >
+          <ul className='flex flex-col gap-4 my-4'>
+            {pageNavigations.map((pageNavigation, i) => {
+              return (
+                <li key={i}>
+                  <a
+                    href={pageNavigation.link}
+                    className="nav-link uppercase text-2xl"
+                  >
+                    {pageNavigation.name}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </motion.div>
+      </motion.div>
     </header>
   )
 }
