@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { motion } from "motion/react"
-import { useState } from "react"
 import { useEffect } from "react"
 import { anim } from "../../utils/utils"
 import { useScrollContext } from "../../contexts/ScrollContext"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 const SVG = ({ width, height }) => {
   const initialPath = `
@@ -58,23 +58,7 @@ const SVG = ({ width, height }) => {
 }
 
 export default function Preloader() {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-
-  // Get set window dimensions at load and on resize
-  useEffect(() => {
-    const resize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-    }
-
-    resize()
-
-    window.addEventListener("resize", resize)
-
-    return () => window.removeEventListener("resize", resize)
-  }, [])
+  const dimensions = useWindowDimensions()
 
   // Scroll to top on load
   useEffect(() => {
@@ -89,20 +73,15 @@ export default function Preloader() {
 
   useEffect(() => {
     setAllowScroll(false)
-    setTimeout(() => setAllowScroll(true), 2000)
+    // setTimeout(() => setAllowScroll(true), 2000)
   }, [setAllowScroll])
 
   return (
-    <div
-      id="preloader"
-      className="absolute inset-0 h-screen w-full"
-      // className="absolute inset-0 w-full h-screen z-[100] flex overflow-x-hidden [&>div]:w-1/2 [&>div]:h-full [&>div]:bg-black"
-    >
+    <div id="preloader" className="absolute inset-0 h-screen w-full">
       <div
         className="bg-secondary opacity-0"
         style={{ opacity: dimensions.width > 0 && 1 }}
       ></div>
-      {/* When preloader ends, hero becomes black bg / white text */}
       {dimensions.width > 0 && <SVG {...dimensions} />}
     </div>
   )

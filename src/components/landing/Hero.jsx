@@ -44,10 +44,10 @@ export default function Hero() {
         >
           <div className="select-none">
             <h1
-              className="relative w-full  uppercase text-left md:text-center leading-none"
+              className="relative w-full uppercase text-left md:text-center leading-none"
               style={{
                 letterSpacing: "clamp(-0.05em, -0.15em, -0.25em)",
-                fontSize: "clamp(3rem, 16vw, 10.25rem)",
+                fontSize: "clamp(2rem, 11.25vw, 10.25rem)",
               }}
             >
               Emre Gundogdu
