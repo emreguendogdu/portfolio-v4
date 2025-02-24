@@ -266,7 +266,7 @@ export default function Projects() {
 
       <ShinyButton
         href="https://github.com/emreguendogdu/"
-        className="!absolute -bottom-1 left-1/2 -translate-x-1/2 w-fit"
+        className="!absolute bottom-2 left-1/2 -translate-x-1/2 w-fit"
       >
         Find More
       </ShinyButton>
