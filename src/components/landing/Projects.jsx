@@ -253,7 +253,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className={`relative bg-black px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY text-white min-h-[900vh] md:min-h-[1200vh] snap-mandatory snap-y -mt-[100vh] z-10 mb-4`}
+      className={`relative bg-black px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY text-white min-h-[900vh] md:min-h-[900vh] snap-mandatory snap-y -mt-[100vh] z-10 mb-4`}
       ref={targetRef}
     >
       <p className="subheading">(Projects)</p>
