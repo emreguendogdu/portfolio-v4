@@ -12,7 +12,7 @@ export default function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-link uppercase"
+                className="nav-link uppercase px-1 py-2"
               >
                 {social.name}
               </a>
