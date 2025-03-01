@@ -7,16 +7,15 @@ export default function Footer() {
       <div className="w-full flex justify-between items-start md:items-end border-t border-t-neutral-800 py-4 px-sectionX-m md:px-sectionX">
         <ul className="[&_a]:uppercase flex flex-col md:flex-row md:gap-4">
           {socials.map((social, index) => (
-            <li key={index}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-link"
-              >
-                {social.name}
-              </a>
-            </li>
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link"
+              key={`fs_${index}`}
+            >
+              {social.name}
+            </a>
           ))}
         </ul>
         <div className="md:flex md:gap-4 nav-link pointer-events-none">

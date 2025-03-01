@@ -104,6 +104,7 @@ const ProjectImage = ({ project }) => {
           poster={`/assets/ethera-supplements-thumbnail.webp`}
           loop
           muted
+          aria-hidden
           playsInline
           className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
           preload="none"
@@ -136,6 +137,7 @@ const ProjectImage = ({ project }) => {
       rel="noopener noreferrer"
       className="relative w-full h-full overflow-hidden"
       {...anim(imageVariants)}
+      aria-label={`View ${project.name}`}
     >
       {project.name === "Ethera Supplements" ? <Video /> : <Image />}
     </motion.a>
