@@ -10,6 +10,7 @@ import { projects } from "../../data"
 import { anim, kebabCase, textToLetter } from "../../utils/utils"
 import ShinyButton from "../ui/ShinyButton"
 import { useEffect } from "react"
+import BlurredUpImage from "../ui/BlurredUpImage"
 
 const easeInQuint = [0.64, 0, 0.78, 0]
 const easeOutQuint = [0.22, 1, 0.36, 1]
@@ -83,7 +84,7 @@ const ProjectImage = ({ project }) => {
     const videoElement = videoRef.current
     if (!videoElement) return
 
-    const observer = new IntersectionObserver(
+    const videoPlayObserver = new IntersectionObserver(
       ([entry]) => {
         entry.isIntersecting ? videoElement.play() : videoElement.load()
       },
@@ -92,8 +93,8 @@ const ProjectImage = ({ project }) => {
       }
     )
 
-    observer.observe(videoElement)
-    return () => observer.disconnect()
+    videoPlayObserver.observe(videoElement)
+    return () => videoPlayObserver.disconnect()
   }, [])
 
   function Video() {
@@ -117,15 +118,13 @@ const ProjectImage = ({ project }) => {
   }
 
   function Image() {
+    const ext = project.name === "Design Challenges" ? ".gif" : ".webp"
     return (
-      <img
-        src={`/assets/${kebabCase(project.name)}${
-          project.name === "Design Challenges" ? ".gif" : ".webp"
-        }`}
+      <BlurredUpImage
+        tiny={`/assets/lazyLoading/${kebabCase(project.name)}-small.webp`}
+        large={`/assets/${kebabCase(project.name)}${ext}`}
         alt={project.name}
         className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
-        loading="lazy"
-        decoding="async"
       />
     )
   }

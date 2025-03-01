@@ -74,6 +74,7 @@ export default function Hero() {
           <div
             className="absolute bottom-4 left-1/2 -translate-y-1/2 text-5xl text-neutral-200"
             id="scroll-down-icon"
+            aria-hidden
           >
             <MouseScrollDownIcon />
           </div>

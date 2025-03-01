@@ -1,70 +1,63 @@
-import { useState, useEffect } from "react"
-import { motion } from "motion/react"
+import { useEffect, useRef } from "react"
 
 const starCount = 600
 
 export default function StarryBackground() {
-  const [stars, setStars] = useState([])
+  const canvasRef = useRef(null)
+  let stars = useRef([])
 
   useEffect(() => {
-    // Generate stars only once when the component mounts
-    setStars(
-      Array.from({ length: starCount }).map((_, i) => ({
-        id: i,
-        top: `${Math.random() * 100}vh`,
-        left: `${Math.random() * 100}vw`,
-        duration: Math.random() * 5 + 3,
-        delay: Math.random() * 5,
-        width: `${Math.random() * 2.5}px`,
-        height: `${Math.random() * 2.5}px`,
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      generateStars()
+    }
+
+    const generateStars = () => {
+      stars.current = Array.from({ length: starCount }).map(() => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1,
+        speed: 0.1, // Slow-moving effect
       }))
-    )
+    }
+
+    const animateStars = () => {
+      if (!ctx) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      stars.current.forEach((star) => {
+        star.x -= star.speed
+        if (star.x < 0) star.x = canvas.width // Reset star when it moves out
+
+        ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 1 + 0.5})`
+        ctx.beginPath()
+        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI)
+        ctx.fill()
+      })
+
+      requestAnimationFrame(animateStars)
+    }
+
+    resizeCanvas()
+    animateStars()
+
+    window.addEventListener("resize", resizeCanvas)
+    return () => window.removeEventListener("resize", resizeCanvas)
   }, [])
 
   return (
     <div
+      className="absolute w-full h-screen bg-black -z-10 overflow-hidden"
       id="starry-bg"
-      className="absolute overflow-hidden w-full h-screen bg-black -z-10"
     >
-      {/* Moving Space Background */}
-      <div className="flex w-[200vw]">
-        {[0, 1].map((_, index) => (
-          <motion.div
-            key={index}
-            className="h-screen w-[100vw] bg-black relative"
-            initial={{ x: "0vw" }}
-            animate={{ x: "-100vw" }}
-            transition={{
-              duration: 120,
-              ease: "linear",
-              repeat: Infinity,
-            }}
-          >
-            {/* Stars inside the moving background */}
-            {stars.map((star) => (
-              <motion.div
-                key={star.id}
-                className="absolute w-[1px] h-[1px] bg-neutral-400 rounded-full"
-                style={{
-                  top: star.top,
-                  left: star.left,
-                  width: star.width,
-                  height: star.height,
-                }}
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 0.5 }}
-                transition={{
-                  duration: star.duration,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: star.delay,
-                }}
-              />
-            ))}
-          </motion.div>
-        ))}
-      </div>
+      <canvas ref={canvasRef} className="absolute top-0 left-0" />
     </div>
   )
 }

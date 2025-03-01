@@ -27,7 +27,7 @@ const LocalTime = () => {
     return () => clearTimeout(initialTimeout) // Cleanup on unmount
   }, [])
 
-  return <p>{time}, GMT+3</p>
+  return <span>{time}, GMT+3</span>
 }
 
 export default LocalTime
