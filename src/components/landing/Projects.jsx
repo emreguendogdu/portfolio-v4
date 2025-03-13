@@ -10,7 +10,7 @@ import { projects } from "../../data"
 import { anim, kebabCase, textToLetter } from "../../utils/utils"
 import ShinyButton from "../ui/ShinyButton"
 import { useEffect } from "react"
-import BlurredUpImage from "../ui/BlurredUpImage"
+import ImageComponent from "../ui/ImageComponent"
 
 const easeInQuint = [0.64, 0, 0.78, 0]
 const easeOutQuint = [0.22, 1, 0.36, 1]
@@ -121,9 +121,15 @@ const ProjectImage = ({ project }) => {
   function Image() {
     const ext = project.name === "Design Challenges" ? ".gif" : ".webp"
     return (
-      <BlurredUpImage
-        tiny={`/assets/lazyLoading/${kebabCase(project.name)}-small.webp`}
-        large={`/assets/${kebabCase(project.name)}${ext}`}
+      // <BlurredUpImage
+      //   tiny={`/assets/lazyLoading/${kebabCase(project.name)}-small.webp`}
+      //   large={`/assets/${kebabCase(project.name)}${ext}`}
+      //   alt={project.name}
+      //   className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
+      // />
+      <ImageComponent
+        src={`/assets/${kebabCase(project.name)}${ext}`}
+        hash={project.imgHash}
         alt={project.name}
         className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
       />
