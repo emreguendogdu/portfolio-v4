@@ -12,10 +12,10 @@ export default function App() {
     <>
       <ScrollProvider>
         {/* <MouseTracker /> */}
-        <Preloader />
-        <Hero />
+        {/* <Preloader /> */}
         <Header />
-        <About />
+        {/* <Hero /> */}
+        {/* <About /> */}
         <Projects />
         <Footer />
       </ScrollProvider>
