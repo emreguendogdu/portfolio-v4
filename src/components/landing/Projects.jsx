@@ -3,7 +3,13 @@ import { AnimatePresence, motion } from "motion/react"
 import { projects } from "../../data"
 import { Fragment, useRef, useState } from "react"
 
-function Project({ project, index, selectedProject, setSelectedProject }) {
+function Project({
+  project,
+  index,
+  selectedProject,
+  setSelectedProject,
+  prevIndexRef,
+}) {
   let isSelectedProject = selectedProject === index
   const contentRef = useRef(null)
 
@@ -17,33 +23,43 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
 
   return (
     <motion.li
-      className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4"
+      className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4 cursor-pointer"
+      onClick={handleClick}
+      onMouseEnter={() => {
+        prevIndexRef.current = index
+      }}
       initial="initial"
       animate="animate"
       whileHover="whileHover"
+      data-index={index}
     >
       {/* (Always Visible) Small Project Information */}
-      <div
-        className="flex justify-between cursor-pointer"
-        onClick={handleClick}
-      >
+      <div className="flex justify-between pointer-events-none">
         {/* Image on Hover */}
-        <motion.img
-          className="absolute w-1/3 h-[250%] max-h-[400px] object-cover left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          src={project.images[0]}
-          alt={project.name}
-          loading="lazy"
-          decoding="async"
-          variants={{
-            initial: { scale: 0 },
-            whileHover: { scale: isSelectedProject ? 0 : 1 },
-          }}
-          transition={{
-            when: "beforeChildren",
-            duration: isSelectedProject ? 0.25 : 0.6,
-            type: isSelectedProject ? "tween" : "spring",
-          }}
-        />
+        <div className="absolute w-1/3 h-[250%] max-h-[400px] left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <motion.img
+            className="w-full h-full object-cover z-10"
+            src={project.images[0]}
+            alt={project.name}
+            loading="lazy"
+            decoding="async"
+            variants={{
+              initial: {
+                opacity: 0,
+                y: prevIndexRef.current < index ? "-100%" : "100%",
+              },
+              whileHover: {
+                opacity: 1,
+                y: 0,
+              },
+            }}
+            transition={{
+              duration: 0.75,
+              ease: "easeOut",
+              when: "afterChildren",
+            }}
+          />
+        </div>
         {/* Project Name */}
         <motion.h3
           variants={{
@@ -52,6 +68,7 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
             whileHover: { x: isSelectedProject ? 0 : (index + 1) * 5 },
           }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="pointer-events-none"
         >
           {project.name}
         </motion.h3>
@@ -63,6 +80,7 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
             whileHover: { x: isSelectedProject ? 0 : -1 * ((index + 1) * 5) },
           }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="pointer-events-none"
         >
           {project.year}
         </motion.h3>
@@ -95,15 +113,6 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
             exit={{ opacity: 0, y: 10, transition: { duration: 0.2 } }}
           >
             <div id="top-content" className="relative flex [&>div]:flex-1 py-4">
-              {/* Border */}
-              {/* <motion.div
-                className="absolute top-0 w-full h-[1px] bg-current/80 origin-left"
-                initial={{ scaleX: 0 }}
-                animate={{
-                  scaleX: isSelectedProject ? 1 : 0,
-                  transition: { duration: 0.5, ease: "easeInOut" },
-                }}
-              /> */}
               <motion.div
                 className="text-justify"
                 initial={{ y: "-200%" }}
@@ -181,6 +190,8 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null)
+  const prevIndexRef = useRef(null)
+
   return (
     <section
       id="projects"
@@ -195,6 +206,7 @@ export default function Projects() {
                 index={i}
                 selectedProject={selectedProject}
                 setSelectedProject={setSelectedProject}
+                prevIndexRef={prevIndexRef}
               />
             </Fragment>
           )
