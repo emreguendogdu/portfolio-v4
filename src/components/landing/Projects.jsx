@@ -2,9 +2,6 @@
 import { AnimatePresence, motion } from "motion/react"
 import { projects } from "../../data"
 import { Fragment, useRef, useState } from "react"
-import { kebabCase } from "../../utils/utils"
-
-// Y - 100% if selectedProject
 
 function Project({ project, index, selectedProject, setSelectedProject }) {
   let isSelectedProject = selectedProject === index
@@ -18,8 +15,6 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
     setSelectedProject(index)
   }
 
-  const imageExtension = project.name === "Design Challenges" ? ".gif" : ".webp"
-
   return (
     <motion.li
       className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4"
@@ -27,15 +22,15 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
       animate="animate"
       whileHover="whileHover"
     >
-      {/* Project Name & Date (Always Visible) */}
+      {/* (Always Visible) Small Project Information */}
       <div
         className="flex justify-between cursor-pointer"
         onClick={handleClick}
       >
-        {/* Hover Image */}
+        {/* Image on Hover */}
         <motion.img
           className="absolute w-1/3 h-[250%] max-h-[400px] object-cover left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          src={`/assets/${kebabCase(project.name)}${imageExtension}`}
+          src={project.images[0]}
           alt={project.name}
           loading="lazy"
           decoding="async"
@@ -49,6 +44,7 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
             type: isSelectedProject ? "tween" : "spring",
           }}
         />
+        {/* Project Name */}
         <motion.h3
           variants={{
             initial: { fontWeight: 300, x: 0 },
@@ -59,6 +55,7 @@ function Project({ project, index, selectedProject, setSelectedProject }) {
         >
           {project.name}
         </motion.h3>
+        {/* Project Year */}
         <motion.h3
           variants={{
             initial: { fontWeight: 300, x: 0 },

@@ -4,6 +4,7 @@ export const projects = [
     href: "https://ethera-supplements.vercel.app/",
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2025,
+    images: ["/assets/ethera-supplements.webp"],
   },
   {
     name: "Ruya Digital",
@@ -11,6 +12,7 @@ export const projects = [
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2024,
     imgHash: "L36Hr|RzD+jc?dR|akf900ND-rof",
+    images: ["/assets/ruya-digital.webp"],
   },
   {
     name: "Zen Tattoo",
@@ -18,6 +20,7 @@ export const projects = [
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2024,
     imgHash: "LBBpqk_4000000D%_3?b00IU~q?b",
+    images: ["/assets/zen-tattoo.webp"],
   },
   {
     name: "Design Challenges",
@@ -25,6 +28,7 @@ export const projects = [
     techStack: ["UI/UX", "Figma"],
     year: 2024,
     imgHash: "LdD^Z-j^o%bdx{WAadoJ.Aozj=ae",
+    images: ["/assets/design-challenges.gif"],
   },
   {
     name: "Data Visualizations",
@@ -32,6 +36,7 @@ export const projects = [
     techStack: ["React", "React Router", "SCSS", "D3.js"],
     year: 2024,
     imgHash: "LKFXen}@0KD%DjRj%Mxu4:NG-:xu",
+    images: ["/assets/data-visualizations.webp"],
   },
   {
     name: "Letters App",
@@ -45,6 +50,7 @@ export const projects = [
     ],
     year: 2024,
     imgHash: "LCJH]v-;~q%M00Rj00M_00%L%Mt7",
+    images: ["/assets/letters-app.webp"],
   },
 ]
 
