@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { projects } from "../../data"
 import { useCallback, useMemo, useState, useRef } from "react"
 import useMousePosition from "../../hooks/useMousePosition"
+import useMatchMedia from "../../hooks/useMatchMedia"
 
 // Fix: H3 Hover indent animations not working
 // Fix: ProjectImageDisplay not aligned correctly when switched from alt+tab (Search on StackOverflow)
@@ -78,7 +79,6 @@ const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
   let { x, y } = useMousePosition()
 
   x = Math.max(Math.min(x, window.innerWidth - 400), window.innerWidth / 2)
-
   return (
     <motion.div
       className="absolute w-1/3 left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none"
@@ -182,7 +182,7 @@ const ProjectItem = ({
               exit="exit"
             >
               {/* Top Content */}
-              <div className="relative flex [&>div]:flex-1 py-4">
+              <div className="relative flex flex-col md:flex-row gap-4 md:[&>div]:flex-1 py-4">
                 {/* Description */}
                 <motion.div
                   className="text-justify pr-4"
@@ -200,7 +200,7 @@ const ProjectItem = ({
 
                 {/* Tech Stack */}
                 <motion.div
-                  className="flex flex-wrap justify-end gap-2"
+                  className="flex flex-wrap md:justify-end gap-2"
                   initial={{ y: "-200%" }}
                   animate={{
                     y: 0,
@@ -242,7 +242,7 @@ const ProjectItem = ({
 
               {/* Project Images */}
               <motion.div
-                className="relative flex w-full gap-3 [&>div]:flex-1 h-[300px] mt-12"
+                className="relative flex flex-col md:flex-row w-full gap-3 md:[&>div]:flex-1 md:h-[300px] mt-12"
                 initial={{ y: "-50%" }}
                 animate={{
                   y: 0,
@@ -278,6 +278,7 @@ export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const [direction, setDirection] = useState(1)
   const hoverHistoryRef = useRef([])
+  const isMobile = useMatchMedia("(max-width: 768px)")
 
   // Optimized hover handler using useCallback and direction calculation
   const handleProjectHover = useCallback((index) => {
@@ -336,7 +337,7 @@ export default function Projects() {
       >
         {/* Centralized image display */}
         <AnimatePresence>
-          {hoveredIndex !== null && (
+          {hoveredIndex !== null && selectedProject === null && !isMobile && (
             <ProjectImageDisplay
               hoveredIndex={hoveredIndex}
               direction={direction}
