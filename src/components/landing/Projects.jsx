@@ -121,12 +121,6 @@ const ProjectImage = ({ project }) => {
   function Image() {
     const ext = project.name === "Design Challenges" ? ".gif" : ".webp"
     return (
-      // <BlurredUpImage
-      //   tiny={`/assets/lazyLoading/${kebabCase(project.name)}-small.webp`}
-      //   large={`/assets/${kebabCase(project.name)}${ext}`}
-      //   alt={project.name}
-      //   className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"
-      // />
       <ImageComponent
         src={`/assets/${kebabCase(project.name)}${ext}`}
         hash={project.imgHash}
