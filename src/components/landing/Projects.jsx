@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { AnimatePresence, motion } from "motion/react"
 import { projects } from "../../data"
-import { useCallback, useMemo, useState } from "react"
-import { useEffect } from "react"
+import { useCallback, useMemo, useState, useRef } from "react"
+import useMousePosition from "../../hooks/useMousePosition"
 
-// Animation variants - centralized for consistency
+// Fix: H3 Hover indent animations not working
+// Fix: ProjectImageDisplay not aligned correctly when switched from alt+tab (Search on StackOverflow)
+
 const animationVariants = {
   projectTitle: {
     initial: { fontWeight: 300, x: 0 },
@@ -50,11 +53,9 @@ const animationVariants = {
   imageTransition: {
     initial: (direction) => ({
       y: direction === 1 ? "100%" : "-100%",
-      opacity: 0.8,
     }),
     animate: {
       y: 0,
-      opacity: 1,
       transition: {
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1],
@@ -62,7 +63,6 @@ const animationVariants = {
     },
     exit: (direction) => ({
       y: direction === 1 ? "-100%" : "100%",
-      opacity: 0.8,
       transition: {
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1],
@@ -71,26 +71,27 @@ const animationVariants = {
   },
 }
 
-// Image hover display component
-const ProjectImageDisplay = ({ hoveredIndex, direction }) => {
-  // Early return if nothing is hovered
+const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
   if (hoveredIndex === null) return null
-
-  useEffect(() => {
-    console.log("Hovered Index: ", hoveredIndex)
-  }, [hoveredIndex])
-
+  if (selectedProject !== null) return null
   const currentProject = projects[hoveredIndex]
+  let { x, y } = useMousePosition()
+
+  x = Math.max(Math.min(x, window.innerWidth - 400), window.innerWidth / 2)
 
   return (
     <motion.div
-      className="absolute w-1/3 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[300px] overflow-hidden pointer-events-none"
+      className="absolute w-1/3 left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none"
+      // Top based on index
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 1, x, y }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{
+        opacity: { duration: 0.3 },
+        top: { duration: 0.75, type: "tween" },
+      }}
     >
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
           key={`project-image-${hoveredIndex}`}
           className="w-full h-full"
@@ -112,7 +113,6 @@ const ProjectImageDisplay = ({ hoveredIndex, direction }) => {
   )
 }
 
-// Project item component
 const ProjectItem = ({
   project,
   index,
@@ -242,7 +242,7 @@ const ProjectItem = ({
 
               {/* Project Images */}
               <motion.div
-                className="relative flex w-full gap-3 [&>div]:flex-1 h-[300px] mt-4"
+                className="relative flex w-full gap-3 [&>div]:flex-1 h-[300px] mt-12"
                 initial={{ y: "-50%" }}
                 animate={{
                   y: 0,
@@ -252,8 +252,16 @@ const ProjectItem = ({
                 {Array.from({ length: 3 }).map((_, i) => (
                   <div
                     key={`gallery-${index}-${i}`}
-                    className="bg-black w-full h-full rounded-sm"
-                  />
+                    className="relative bg-black w-full h-full rounded-3xl"
+                  >
+                    <img
+                      className="w-full h-full object-scale-down"
+                      src={project.images[0]}
+                      alt={`${project.name} display 1`}
+                      decoding="async"
+                      loading="lazy"
+                    />
+                  </div>
                 ))}
               </motion.div>
             </motion.div>
@@ -268,26 +276,37 @@ const ProjectItem = ({
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null)
   const [hoveredIndex, setHoveredIndex] = useState(null)
-  const [prevHoveredIndex, setPrevHoveredIndex] = useState(null)
   const [direction, setDirection] = useState(1)
+  const hoverHistoryRef = useRef([])
 
-  // Optimized hover handler using useCallback
-  const handleProjectHover = useCallback(
-    (index) => {
-      if (hoveredIndex !== null) {
-        setPrevHoveredIndex(hoveredIndex)
-        setDirection(index > hoveredIndex ? 1 : -1)
-      } else if (prevHoveredIndex !== null) {
-        setDirection(index > prevHoveredIndex ? 1 : -1)
-      }
-      setHoveredIndex(index)
-    },
-    [hoveredIndex, prevHoveredIndex]
-  )
+  // Optimized hover handler using useCallback and direction calculation
+  const handleProjectHover = useCallback((index) => {
+    // Add the new index to history
+    hoverHistoryRef.current.push(index)
+
+    // Keep only the last 2 items in history
+    if (hoverHistoryRef.current.length > 2) {
+      hoverHistoryRef.current.shift()
+    }
+
+    // Calculate direction based on current and previous indices
+    if (hoverHistoryRef.current.length > 1) {
+      const prev = hoverHistoryRef.current[0]
+      const current = hoverHistoryRef.current[1]
+
+      // Simple direction calculation based on index comparison
+      // If moving to a higher index, direction is 1 (right), otherwise -1 (left)
+      setDirection(current > prev ? 1 : -1)
+    }
+
+    setHoveredIndex(index)
+  }, [])
 
   // Reset hover state when mouse leaves the projects section
   const handleMouseLeave = useCallback(() => {
     setHoveredIndex(null)
+    // Clear history when mouse leaves
+    hoverHistoryRef.current = []
   }, [])
 
   // Memoize the list to prevent unnecessary re-renders
@@ -312,7 +331,7 @@ export default function Projects() {
       className="relative w-full min-h-screen flex justify-center items-center px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY bg-[#E6E8EA] text-black"
     >
       <div
-        className="relative w-full max-w-7xl mx-auto"
+        className="relative w-full max-w-7xl mx-auto origin-center"
         onMouseLeave={handleMouseLeave}
       >
         {/* Centralized image display */}
@@ -321,6 +340,7 @@ export default function Projects() {
             <ProjectImageDisplay
               hoveredIndex={hoveredIndex}
               direction={direction}
+              selectedProject={selectedProject}
             />
           )}
         </AnimatePresence>

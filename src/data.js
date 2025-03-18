@@ -24,7 +24,7 @@ export const projects = [
   },
   {
     name: "Design Challenges",
-    href: "https://linkedin.com/in/emregnd/",
+    href: "https://www.figma.com/design/VlI1tokqH0GDajbmLlwfIG/Design-Challenges?node-id=0-1&t=O5D8EWyoqNCLunvF-1",
     techStack: ["UI/UX", "Figma"],
     year: 2024,
     imgHash: "LdD^Z-j^o%bdx{WAadoJ.Aozj=ae",

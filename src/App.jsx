@@ -12,7 +12,7 @@ export default function App() {
     <>
       <ScrollProvider>
         {/* <MouseTracker /> */}
-        {/* <Preloader /> */}
+        <Preloader />
         <Header />
         {/* <Hero /> */}
         {/* <About /> */}
