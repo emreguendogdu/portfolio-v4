@@ -1,14 +1,20 @@
 export const projects = [
   {
     name: "Ethera Supplements",
-    href: "https://ethera-supplements.vercel.app/",
+    hrefs: {
+      live: "https://ethera-supplements.vercel.app/",
+      source: "https://github.com/emreguendogdu/ethera-supplements",
+    },
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2025,
     images: ["/assets/ethera-supplements.webp"],
   },
   {
     name: "Ruya Digital",
-    href: "https://ruyadigital.com/",
+    hrefs: {
+      live: "https://ruyadigital.com/",
+      source: "https://github.com/emreguendogdu/ruyadigitalcom",
+    },
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2024,
     imgHash: "L36Hr|RzD+jc?dR|akf900ND-rof",
@@ -16,7 +22,10 @@ export const projects = [
   },
   {
     name: "Zen Tattoo",
-    href: "https://zen-tattoo.vercel.app/",
+    hrefs: {
+      live: "https://zen-tattoo.vercel.app/",
+      source: "https://github.com/emreguendogdu/zen-tattoo",
+    },
     techStack: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber"],
     year: 2024,
     imgHash: "LBBpqk_4000000D%_3?b00IU~q?b",
@@ -24,7 +33,10 @@ export const projects = [
   },
   {
     name: "Design Challenges",
-    href: "https://www.figma.com/design/VlI1tokqH0GDajbmLlwfIG/Design-Challenges?node-id=0-1&t=O5D8EWyoqNCLunvF-1",
+    hrefs: {
+      source:
+        "https://www.figma.com/design/VlI1tokqH0GDajbmLlwfIG/Design-Challenges?node-id=0-1&t=O5D8EWyoqNCLunvF-1",
+    },
     techStack: ["UI/UX", "Figma"],
     year: 2024,
     imgHash: "LdD^Z-j^o%bdx{WAadoJ.Aozj=ae",
@@ -32,7 +44,10 @@ export const projects = [
   },
   {
     name: "Data Visualizations",
-    href: "https://emreguendogdu.github.io/data-visualization-projects/",
+    hrefs: {
+      live: "https://emreguendogdu.github.io/data-visualization-projects/",
+      source: "https://github.com/emreguendogdu/data-visualization-projects",
+    },
     techStack: ["React", "React Router", "SCSS", "D3.js"],
     year: 2024,
     imgHash: "LKFXen}@0KD%DjRj%Mxu4:NG-:xu",
@@ -40,7 +55,10 @@ export const projects = [
   },
   {
     name: "Letters App",
-    href: "https://letters-app.vercel.app/",
+    hrefs: {
+      live: "https://letters-app.vercel.app/",
+      source: "https://github.com/emreguendogdu/letters-app",
+    },
     techStack: [
       "Next.js",
       "Next-Auth",

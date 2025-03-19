@@ -1,18 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react"
 import { useState } from "react"
 import { Blurhash } from "react-blurhash"
-import { getPlaiceholder } from "plaiceholder"
-import { useMemo } from "react"
 
-const getBlurHash = async (src) => {
-  const { base64 } = await getPlaiceholder(`http://localhost:5173/${src}`)
-  return base64
-}
-
-// eslint-disable-next-line react/prop-types
-export default function ImageComponent({ src, className, alt }) {
+export default function ImageComponent({
+  src,
+  className,
+  alt,
+  hash = "30Dl[{0000~q",
+  lazy,
+}) {
   const [imageLoaded, setImageLoaded] = useState(false)
-  const [hash, setHash] = useState(null)
 
   useEffect(() => {
     const img = new Image()
@@ -21,18 +19,6 @@ export default function ImageComponent({ src, className, alt }) {
     }
     img.src = src
   }, [src])
-
-  useEffect(() => {
-    getBlurHash(src).then((hash) => {
-      setHash(hash)
-    })
-  }, [src])
-
-  // useMemo(() => {
-  //   getBlurHash(src).then((hash) => {
-  //     setHash(hash)
-  //   })
-  // }, [src])
 
   return (
     <>
@@ -54,6 +40,8 @@ export default function ImageComponent({ src, className, alt }) {
         alt={alt}
         className={className}
         style={{ display: !imageLoaded ? "none" : "block" }}
+        decoding="async"
+        loading={lazy ? "lazy" : "eager"}
       />
     </>
   )

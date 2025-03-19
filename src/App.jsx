@@ -6,6 +6,7 @@ import Footer from "./components/landing/Footer"
 import Preloader from "./components/ui/Preloader"
 import { ScrollProvider } from "./contexts/ScrollContext"
 import MouseTracker from "./components/ui/MouseTracker"
+import ConsoleAscii from "./components/ui/ConsoleAscii"
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Projects />
         <Footer />
       </ScrollProvider>
+      <ConsoleAscii />
     </>
   )
 }

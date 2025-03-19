@@ -5,21 +5,25 @@ import { projects } from "../../data"
 import { useCallback, useMemo, useState, useRef } from "react"
 import useMousePosition from "../../hooks/useMousePosition"
 import useMatchMedia from "../../hooks/useMatchMedia"
+import ImageComponent from "../ui/ImageComponent"
 
-// Fix: H3 Hover indent animations not working
 // Fix: ProjectImageDisplay not aligned correctly when switched from alt+tab (Search on StackOverflow)
 
 const animationVariants = {
   projectTitle: {
     initial: { fontWeight: 300, x: 0 },
-    selected: { fontWeight: 500 },
+    selected: { fontWeight: 500, x: 0 },
     hover: (index) => ({
-      x: (index + 1) * 5,
-      transition: { duration: 0.6, ease: "easeInOut" },
+      x: 10 + (index + 1) * 5,
+      transition: { duration: 0.45, ease: "easeOut" },
     }),
-    hoverRight: (index) => ({
-      x: -1 * (index + 1) * 5,
-      transition: { duration: 0.6, ease: "easeInOut" },
+  },
+  projectYear: {
+    initial: { fontWeight: 300, x: 0 },
+    selected: { fontWeight: 500, x: 0 },
+    hover: (index) => ({
+      x: -10 + -1 * (index + 1) * 5,
+      transition: { duration: 0.45, ease: "easeOut" },
     }),
   },
   expandedContent: {
@@ -73,22 +77,23 @@ const animationVariants = {
 }
 
 const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
-  if (hoveredIndex === null) return null
-  if (selectedProject !== null) return null
+  if (hoveredIndex === null || selectedProject !== null) return null
   const currentProject = projects[hoveredIndex]
   let { x, y } = useMousePosition()
 
-  x = Math.max(Math.min(x, window.innerWidth - 400), window.innerWidth / 2)
+  x = Math.max(Math.min(x, window.innerWidth / 1.5), window.innerWidth / 2)
   return (
     <motion.div
-      className="absolute w-1/3 left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none"
+      className="absolute w-[40vw] max-w-[500px] left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none z-10"
       // Top based on index
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, x, y }}
       exit={{ opacity: 0 }}
       transition={{
         opacity: { duration: 0.3 },
-        top: { duration: 0.75, type: "tween" },
+        top: { type: "tween", ease: "backOut", duration: 1 },
+        x: { type: "tween", ease: "backOut", duration: 1 },
+        y: { type: "tween", ease: "backOut", duration: 1 },
       }}
     >
       <AnimatePresence custom={direction} mode="popLayout">
@@ -113,6 +118,114 @@ const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
   )
 }
 
+const ExpandedContent = ({ project, index }) => {
+  return (
+    <>
+      <motion.div
+        variants={animationVariants.expandedContent}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="overflow-hidden"
+      >
+        <motion.div variants={animationVariants.contentItems}>
+          {/* Top Content */}
+          <div className="relative flex flex-col md:flex-row gap-4 md:[&>div]:flex-1 py-4">
+            {/* Description */}
+            <motion.div
+              className="text-justify pr-4"
+              initial={{ y: "-100%" }}
+              animate={{
+                y: 0,
+                transition: { duration: 0.75, ease: "easeOut" },
+              }}
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+              numquam optio animi temporibus adipisci mollitia quam, aliquam ab
+              ea, excepturi sapiente. Nam laborum autem odio doloribus iste
+              ratione possimus tenetur magni.
+            </motion.div>
+
+            {/* Tech Stack */}
+            <motion.div
+              className="flex flex-wrap md:justify-end gap-2"
+              initial={{ y: "100%" }}
+              animate={{
+                y: 0,
+                transition: { duration: 0.75, ease: "easeOut" },
+              }}
+            >
+              {project.techStack.map((tech, i) => (
+                <span
+                  className="px-4 py-1 font-light border border-current/40 rounded-3xl w-fit h-fit whitespace-nowrap"
+                  key={`tech-${index}-${i}`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex gap-3 mt-4"
+            initial={{ y: "100%" }}
+            animate={{
+              y: 0,
+              transition: { duration: 0.5, ease: "easeInOut" },
+            }}
+          >
+            {project?.hrefs?.live && (
+              <a
+                className="rounded-3xl px-8 py-2 uppercase font-semibold bg-black text-white transition-transform hover:scale-105"
+                href={project.hrefs.live}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                See Live
+              </a>
+            )}
+            {project?.hrefs?.source && (
+              <a
+                className="rounded-3xl px-8 py-2 uppercase font-light border border-current/50 transition-transform hover:scale-105"
+                href={project.hrefs.source}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </a>
+            )}
+          </motion.div>
+
+          {/* Project Images */}
+          <motion.div
+            className="relative flex flex-col md:flex-row w-full gap-3 md:[&>div]:flex-1 md:h-[300px] mt-12"
+            initial={{ y: "50%" }}
+            animate={{
+              y: 0,
+              transition: { duration: 0.75, ease: "easeInOut" },
+            }}
+          >
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={`gallery-${index}-${i}`}
+                className="relative bg-black w-full h-full rounded-3xl"
+              >
+                <ImageComponent
+                  src={project.images[0]}
+                  alt={`${project.name} display ${i + 1}`}
+                  className="w-full h-full object-scale-down"
+                  lazy
+                />
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </>
+  )
+}
+
 const ProjectItem = ({
   project,
   index,
@@ -133,139 +246,37 @@ const ProjectItem = ({
 
   return (
     <motion.li
-      className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4 cursor-pointer z-10"
-      onClick={handleClick}
+      className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4"
       onMouseEnter={handleHover}
       data-index={index}
     >
       {/* Project Header - Always Visible */}
-      <div className="flex justify-between pointer-events-none">
+      <motion.div
+        className="flex justify-between cursor-pointer z-10"
+        onClick={handleClick}
+        initial="initial"
+        animate={isSelected ? "selected" : "initial"}
+        whileHover={isSelected ? "selected" : "hover"}
+      >
         {/* Name */}
-        <motion.h3
-          custom={index}
-          variants={animationVariants.projectTitle}
-          initial="initial"
-          animate={isSelected ? "selected" : "initial"}
-          whileHover={isSelected ? "selected" : "hover"}
-          className="pointer-events-none"
-        >
+        <motion.h3 custom={index} variants={animationVariants.projectTitle}>
           {project.name}
         </motion.h3>
 
         {/* Year */}
-        <motion.h3
-          custom={index}
-          variants={animationVariants.projectTitle}
-          initial="initial"
-          animate={isSelected ? "selected" : "initial"}
-          whileHover={isSelected ? "selected" : "hoverRight"}
-          className="pointer-events-none"
-        >
+        <motion.h3 custom={index} variants={animationVariants.projectYear}>
           {project.year}
         </motion.h3>
-      </div>
+      </motion.div>
 
       {/* Expanded Content - Visible When Selected */}
       <AnimatePresence mode="wait">
         {isSelected && (
-          <motion.div
-            className="flex flex-col gap-4 overflow-hidden"
-            variants={animationVariants.expandedContent}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          >
-            <motion.div
-              variants={animationVariants.contentItems}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              {/* Top Content */}
-              <div className="relative flex flex-col md:flex-row gap-4 md:[&>div]:flex-1 py-4">
-                {/* Description */}
-                <motion.div
-                  className="text-justify pr-4"
-                  initial={{ y: "-200%" }}
-                  animate={{
-                    y: 0,
-                    transition: { duration: 0.75, ease: "easeOut" },
-                  }}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-                  numquam optio animi temporibus adipisci mollitia quam, aliquam
-                  ab ea, excepturi sapiente. Nam laborum autem odio doloribus
-                  iste ratione possimus tenetur magni.
-                </motion.div>
-
-                {/* Tech Stack */}
-                <motion.div
-                  className="flex flex-wrap md:justify-end gap-2"
-                  initial={{ y: "-200%" }}
-                  animate={{
-                    y: 0,
-                    transition: { duration: 0.75, ease: "easeOut" },
-                  }}
-                >
-                  {project.techStack.map((tech, i) => (
-                    <span
-                      className="px-4 py-1 font-light border border-current/40 rounded-3xl w-fit h-fit whitespace-nowrap"
-                      key={`tech-${index}-${i}`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </motion.div>
-              </div>
-
-              {/* Action Buttons */}
-              <motion.div
-                className="flex gap-3 mt-4"
-                initial={{ y: "-200%" }}
-                animate={{
-                  y: 0,
-                  transition: { duration: 0.5, ease: "easeInOut" },
-                }}
-              >
-                <a
-                  className="rounded-3xl px-8 py-2 uppercase font-semibold bg-black text-white transition-transform hover:scale-105"
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  See Live
-                </a>
-                <button className="rounded-3xl px-8 py-2 uppercase font-light border border-current/50 transition-transform hover:scale-105">
-                  Source Code
-                </button>
-              </motion.div>
-
-              {/* Project Images */}
-              <motion.div
-                className="relative flex flex-col md:flex-row w-full gap-3 md:[&>div]:flex-1 md:h-[300px] mt-12"
-                initial={{ y: "-50%" }}
-                animate={{
-                  y: 0,
-                  transition: { duration: 0.75, ease: "easeInOut" },
-                }}
-              >
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div
-                    key={`gallery-${index}-${i}`}
-                    className="relative bg-black w-full h-full rounded-3xl"
-                  >
-                    <img
-                      className="w-full h-full object-scale-down"
-                      src={project.images[0]}
-                      alt={`${project.name} display 1`}
-                      decoding="async"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </motion.div>
-            </motion.div>
-          </motion.div>
+          <>
+            <div className="relative">
+              <ExpandedContent project={project} index={index} />
+            </div>
+          </>
         )}
       </AnimatePresence>
     </motion.li>
