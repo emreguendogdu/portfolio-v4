@@ -7,7 +7,7 @@ import {
 } from "motion/react"
 import { useState, useRef } from "react"
 import { projects } from "../../data"
-import { anim, kebabCase, textToLetter } from "../../utils/utils"
+import { anim, textToLetter } from "../../utils/utils"
 import ShinyButton from "../ui/ShinyButton"
 import { useEffect } from "react"
 import ImageComponent from "../ui/ImageComponent"
@@ -119,10 +119,9 @@ const ProjectImage = ({ project }) => {
   }
 
   function Image() {
-    const ext = project.name === "Design Challenges" ? ".gif" : ".webp"
     return (
       <ImageComponent
-        src={`/assets/${kebabCase(project.name)}${ext}`}
+        src={project.imgSrc}
         hash={project.imgHash}
         alt={project.name}
         className="relative w-full h-full object-scale-down object-center bg-[#111111] pointer-events-none"

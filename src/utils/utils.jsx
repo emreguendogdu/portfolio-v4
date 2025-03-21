@@ -1,6 +1,5 @@
 import { motion } from "motion/react"
 
-export const kebabCase = (title) => title.toLowerCase().split(" ").join("-")
 export const anim = (variants) => {
   return {
     initial: "initial",

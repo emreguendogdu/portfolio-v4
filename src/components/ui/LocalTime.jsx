@@ -1,40 +1,38 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react"
 
-// Create a Context for the shared time state
-const TimeContext = createContext(null)
+const TimeContext = createContext("")
 
 export const TimeProvider = ({ children }) => {
-  const [time, setTime] = useState("")
+  const [time, setTime] = useState(() =>
+    new Date().toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+  )
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date()
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        })
-      )
+      const newTime = new Date().toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      })
+
+      setTime((prevTime) => (prevTime !== newTime ? newTime : prevTime))
     }
 
-    updateTime() // Initial call
+    updateTime() // Set initial time immediately
 
-    const now = new Date()
-    const secondsUntilNextMinute = 60 - now.getSeconds()
-    const initialTimeout = setTimeout(() => {
-      updateTime()
-      setInterval(updateTime, 60000)
-    }, secondsUntilNextMinute * 1000)
+    const interval = setInterval(updateTime, 60000) // Update every minute
 
-    return () => clearTimeout(initialTimeout)
+    return () => clearInterval(interval)
   }, [])
 
   return <TimeContext.Provider value={time}>{children}</TimeContext.Provider>
 }
 
-// Component consuming the shared time
 const LocalTime = () => {
   const time = useContext(TimeContext)
   return <span>{time}, GMT+3</span>
