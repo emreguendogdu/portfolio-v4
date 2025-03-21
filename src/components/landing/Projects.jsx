@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { AnimatePresence, motion } from "motion/react"
 import { projects } from "../../data"
-import { useCallback, useMemo, useState, useRef } from "react"
+import { useCallback, useMemo, useState, useRef, Fragment } from "react"
 import useMousePosition from "../../hooks/useMousePosition"
 import useMatchMedia from "../../hooks/useMatchMedia"
 import ImageComponent from "../ui/ImageComponent"
@@ -27,10 +27,11 @@ const animationVariants = {
     }),
   },
   expandedContent: {
-    initial: { height: 0, opacity: 0 },
+    initial: { height: 0, opacity: 0, overflow: "hidden" },
     animate: {
       height: "auto",
       opacity: 1,
+      overflow: "visible",
       transition: {
         height: { duration: 0.75, ease: "easeInOut" },
         opacity: { duration: 0.4, delay: 0.2 },
@@ -118,17 +119,22 @@ const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
   )
 }
 
-const ExpandedContent = ({ project, index }) => {
+const ExpandedContent = ({ project, index, selectedProject }) => {
+  const isSelected = selectedProject === index
+
   return (
     <>
       <motion.div
         variants={animationVariants.expandedContent}
         initial="initial"
-        animate="animate"
+        animate={isSelected ? "animate" : "initial"}
         exit="exit"
-        className="overflow-hidden"
+        className="relative top-auto bottom-full"
       >
-        <motion.div variants={animationVariants.contentItems}>
+        <motion.div
+          variants={animationVariants.contentItems}
+          className="origin-bottom"
+        >
           {/* Top Content */}
           <div className="relative flex flex-col md:flex-row gap-4 md:[&>div]:flex-1 py-4">
             {/* Description */}
@@ -245,41 +251,26 @@ const ProjectItem = ({
   }, [index, onHover])
 
   return (
-    <motion.li
-      className="relative w-full border-b border-b-current/50 py-4 flex flex-col gap-4"
+    <motion.div
+      className="relative top-0 w-full border-b border-b-current/50 py-4 flex justify-between cursor-pointer z-10"
       onMouseEnter={handleHover}
       data-index={index}
+      onClick={handleClick}
+      initial="initial"
+      animate={isSelected ? "selected" : "initial"}
+      whileHover={isSelected ? "selected" : "hover"}
     >
       {/* Project Header - Always Visible */}
-      <motion.div
-        className="flex justify-between cursor-pointer z-10"
-        onClick={handleClick}
-        initial="initial"
-        animate={isSelected ? "selected" : "initial"}
-        whileHover={isSelected ? "selected" : "hover"}
-      >
-        {/* Name */}
-        <motion.h3 custom={index} variants={animationVariants.projectTitle}>
-          {project.name}
-        </motion.h3>
+      {/* Name */}
+      <motion.h3 custom={index} variants={animationVariants.projectTitle}>
+        {project.name}
+      </motion.h3>
 
-        {/* Year */}
-        <motion.h3 custom={index} variants={animationVariants.projectYear}>
-          {project.year}
-        </motion.h3>
-      </motion.div>
-
-      {/* Expanded Content - Visible When Selected */}
-      <AnimatePresence mode="wait">
-        {isSelected && (
-          <>
-            <div className="relative">
-              <ExpandedContent project={project} index={index} />
-            </div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.li>
+      {/* Year */}
+      <motion.h3 custom={index} variants={animationVariants.projectYear}>
+        {project.year}
+      </motion.h3>
+    </motion.div>
   )
 }
 
@@ -325,14 +316,20 @@ export default function Projects() {
   const projectsList = useMemo(
     () =>
       projects.map((project, index) => (
-        <ProjectItem
-          key={`project-${index}`}
-          project={project}
-          index={index}
-          selectedProject={selectedProject}
-          setSelectedProject={setSelectedProject}
-          onHover={handleProjectHover}
-        />
+        <Fragment key={`project-${index}`}>
+          <ProjectItem
+            project={project}
+            index={index}
+            selectedProject={selectedProject}
+            setSelectedProject={setSelectedProject}
+            onHover={handleProjectHover}
+          />
+          <ExpandedContent
+            project={project}
+            index={index}
+            selectedProject={selectedProject}
+          />
+        </Fragment>
       )),
     [selectedProject, handleProjectHover]
   )
@@ -342,10 +339,7 @@ export default function Projects() {
       id="projects"
       className="relative w-full min-h-screen flex justify-center items-center px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY bg-[#E6E8EA] text-black"
     >
-      <div
-        className="relative w-full max-w-7xl mx-auto origin-center"
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className="relative w-full" onMouseLeave={handleMouseLeave}>
         {/* Centralized image display */}
         <AnimatePresence>
           {hoveredIndex !== null && selectedProject === null && !isMobile && (
@@ -358,7 +352,12 @@ export default function Projects() {
         </AnimatePresence>
 
         {/* Projects list */}
-        <ul className="relative w-full flex flex-col">{projectsList}</ul>
+        <div
+          id="project-container"
+          className="relative min-h-screen flex flex-col"
+        >
+          {projectsList}
+        </div>
       </div>
     </section>
   )
