@@ -2,11 +2,9 @@
 import { motion } from "motion/react"
 import { useEffect } from "react"
 import { anim } from "../../utils/utils"
-import { useScrollContext } from "../../contexts/ScrollContext"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
-import { useState } from "react"
 
-const SVG = ({ width, height, setCompleted }) => {
+const SVG = ({ width, height }) => {
   const initialPath = `
     M 0 0
     Q -300 ${height / 2} 0 ${height}
@@ -42,58 +40,40 @@ const SVG = ({ width, height, setCompleted }) => {
 
   return (
     <motion.svg
-      className="pointer-events-none fixed left-0 h-screen z-[200]"
+      className="pointer-events-none fixed left-0 h-screen z-[200] text-current"
       style={{ width: "calc(100vw + 600px)" }}
       {...anim(slide)}
     >
-      <motion.path
-        {...anim(curve)}
-        fill="var(--color-secondary)"
-        onAnimationComplete={() => setCompleted(true)}
-      />
+      <motion.path {...anim(curve)} fill="currentColor" />
     </motion.svg>
   )
 }
 
 export default function Preloader() {
   const dimensions = useWindowDimensions()
-  const [completed, setCompleted] = useState(false)
 
   // Scroll to top on load
   useEffect(() => {
     if (!window) return
     setTimeout(function () {
       window.scrollTo(0, 0)
-    }, 100)
+    }, 300)
   }, [])
 
   // Block scrolling, reactivate when animation ends
-  const { setAllowScroll } = useScrollContext()
-
-  useEffect(() => {
-    setAllowScroll(false)
-    if (completed) {
-      setAllowScroll(true)
-    }
-  }, [setAllowScroll, completed])
 
   return (
     <motion.div
       id="preloader"
-      className="absolute inset-0 h-screen w-full"
+      className="absolute inset-0 h-screen w-full text-[#1c1d20]"
       initial={{ display: "block" }}
-      animate={{
-        display: completed ? "none" : "block",
-        transition: { duration: 1, delay: 0.35 },
-      }}
+      animate={{ display: "none", transition: { delay: 2 } }}
     >
       <div
-        className="bg-secondary opacity-0"
+        className="bg-current opacity-0"
         style={{ opacity: dimensions.width > 0 && 1 }}
-      ></div>
-      {dimensions.width > 0 && (
-        <SVG {...dimensions} setCompleted={setCompleted} />
-      )}
+      />
+      {dimensions.width > 0 && <SVG {...dimensions} />}
     </motion.div>
   )
 }
