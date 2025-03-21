@@ -1,5 +1,14 @@
-import { socials } from "../../data"
-import LocalTime from "../ui/LocalTime"
+import LocalTime, { TimeProvider } from "../ui/LocalTime"
+
+const socials = [
+  { name: "CV", href: "/assets/Emre_Gundogdu_CV_2025.pdf" },
+  { name: "Linkedin", href: "https://linkedin.com/in/emregnd/" },
+  {
+    name: "Github",
+    href: "https://github.com/emregnd/",
+  },
+  { name: "hello@emregnd.com", href: "mailto:hello@emregnd.com" },
+]
 
 export default function Footer() {
   return (
@@ -20,7 +29,9 @@ export default function Footer() {
           ))}
         </ul>
         <div className="md:flex md:gap-4 nav-link pointer-events-none">
-          <LocalTime />
+          <TimeProvider>
+            <LocalTime />
+          </TimeProvider>
           <p className="select-none">© 2025</p>
         </div>
       </div>

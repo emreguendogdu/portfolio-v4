@@ -26,7 +26,7 @@ export default function ShinyButton({
           mass: 0.1,
         },
       }}
-      className={`block px-6 py-2 rounded-md relative radial-gradient w-fit ${className}`}
+      className={`block px-6 py-2 rounded-3xl relative radial-gradient w-fit ${className}`}
       href={href}
       target="_blank"
       rel="noreferrer noopenner"

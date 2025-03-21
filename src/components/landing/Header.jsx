@@ -1,4 +1,4 @@
-import LocalTime from "../ui/LocalTime"
+import LocalTime, { TimeProvider } from "../ui/LocalTime"
 
 export default function Header() {
   return (
@@ -12,7 +12,9 @@ export default function Header() {
             emregnd<sup>®</sup>
           </a>
           <p className="nav-link select-none hover:text-neutral-400">
-            <LocalTime />
+            <TimeProvider>
+              <LocalTime />
+            </TimeProvider>
           </p>
           <a
             href="mailto:hello@emregnd.com"

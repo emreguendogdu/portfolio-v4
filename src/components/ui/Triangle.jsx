@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { motion } from "motion/react"
-// import PropTypes from "prop-types"
 
 export default function Triangle(props) {
   return (

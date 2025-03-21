@@ -1,7 +1,10 @@
-import { useEffect } from "react"
-import { useState } from "react"
+/* eslint-disable react/prop-types */
+import { createContext, useContext, useEffect, useState } from "react"
 
-const LocalTime = () => {
+// Create a Context for the shared time state
+const TimeContext = createContext(null)
+
+export const TimeProvider = ({ children }) => {
   const [time, setTime] = useState("")
 
   useEffect(() => {
@@ -15,18 +18,25 @@ const LocalTime = () => {
         })
       )
     }
+
     updateTime() // Initial call
 
     const now = new Date()
-    const secondsUntilNextMinute = 60 - now.getSeconds() // Calculate delay for the next full minute
+    const secondsUntilNextMinute = 60 - now.getSeconds()
     const initialTimeout = setTimeout(() => {
       updateTime()
-      setInterval(updateTime, 60000) // Update every minute exactly at :00 seconds
+      setInterval(updateTime, 60000)
     }, secondsUntilNextMinute * 1000)
 
-    return () => clearTimeout(initialTimeout) // Cleanup on unmount
+    return () => clearTimeout(initialTimeout)
   }, [])
 
+  return <TimeContext.Provider value={time}>{children}</TimeContext.Provider>
+}
+
+// Component consuming the shared time
+const LocalTime = () => {
+  const time = useContext(TimeContext)
   return <span>{time}, GMT+3</span>
 }
 
