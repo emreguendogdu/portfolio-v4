@@ -5,13 +5,13 @@ import Header from "./components/landing/Header"
 import Footer from "./components/landing/Footer"
 import Preloader from "./components/ui/Preloader"
 import { ScrollProvider } from "./contexts/ScrollContext"
-// import MouseTracker from "./components/ui/MouseTracker"
+import MouseTracker from "./components/ui/MouseTracker"
 
 export default function App() {
   return (
     <>
       <ScrollProvider>
-        {/* <MouseTracker /> */}
+        <MouseTracker />
         <Preloader />
         <Hero />
         <Header />

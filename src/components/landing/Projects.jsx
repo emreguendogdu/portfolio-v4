@@ -99,7 +99,7 @@ const ProjectImage = ({ project }) => {
 
   function Video() {
     return (
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full pointer-events-none">
         <video
           poster={`/assets/ethera-supplements-thumbnail.webp`}
           loop
@@ -135,7 +135,9 @@ const ProjectImage = ({ project }) => {
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative w-full h-full overflow-hidden"
+      className="relative w-full h-full overflow-hidden pointer-events-auto"
+      data-hover="project"
+      data-color={project.imgHash}
       {...anim(imageVariants)}
       aria-label={`View ${project.name}`}
     >
@@ -155,7 +157,7 @@ const Project = ({ projectIndex }) => {
         ref={targetRef}
         key={projectIndex}
       >
-        <div className="relative w-full h-full flex flex-col gap-8 items-center py-16 md:py-12 select-none box-border">
+        <div className="relative w-full h-full flex flex-col gap-8 items-center py-16 md:py-12 select-none box-border pointer-events-none">
           <div
             id="content-top"
             className="relative text-center flex w-full justify-between"
