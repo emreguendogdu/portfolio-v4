@@ -11,8 +11,8 @@ import ImageComponent from "../ui/ImageComponent"
 
 const animationVariants = {
   projectTitle: {
-    initial: { fontWeight: 300, x: 0 },
-    selected: { fontWeight: 500, x: 0 },
+    initial: { fontWeight: 300, x: 0, zIndex: 1 },
+    selected: { fontWeight: 500, x: 0, zIndex: 20 },
     hover: (index) => ({
       x: 10 + (index + 1) * 5,
       transition: { duration: 0.45, ease: "easeOut" },
@@ -27,32 +27,43 @@ const animationVariants = {
     }),
   },
   expandedContent: {
-    initial: { height: 0, opacity: 0, overflow: "hidden" },
+    initial: {
+      height: 0,
+      overflow: "hidden",
+      zIndex: 1,
+      transition: {
+        duration: 0.75,
+        ease: "easeInOut",
+      },
+    },
     animate: {
       height: "auto",
-      opacity: 1,
       overflow: "visible",
+      zIndex: 20,
       transition: {
-        height: { duration: 0.75, ease: "easeInOut" },
-        opacity: { duration: 0.4, delay: 0.2 },
+        duration: 0.75,
+        ease: "easeInOut",
       },
     },
     exit: {
       height: 0,
-      opacity: 0,
-      transition: { duration: 0.5 },
+      transition: {
+        duration: 0.75,
+        ease: "easeInOut",
+      },
     },
   },
   contentItems: {
-    initial: { opacity: 0, y: 20 },
+    initial: {
+      y: "-50%",
+      transition: { duration: 0.5, delay: 0.1, ease: "easeOut" },
+    },
     animate: {
-      opacity: 1,
       y: 0,
-      transition: { duration: 0.4, delay: 0.2 },
+      transition: { duration: 0.5, delay: 0.1, ease: "easeOut" },
     },
     exit: {
-      opacity: 0,
-      y: 10,
+      y: "-50%",
       transition: { duration: 0.2 },
     },
   },
@@ -85,7 +96,7 @@ const ProjectImageDisplay = ({ hoveredIndex, direction, selectedProject }) => {
   x = Math.max(Math.min(x, window.innerWidth / 1.5), window.innerWidth / 2)
   return (
     <motion.div
-      className="absolute w-[40vw] max-w-[500px] left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none z-10"
+      className="absolute w-[40vw] max-w-[500px] left-0 -translate-x-2/3 top-0 -translate-y-full h-[300px] overflow-hidden pointer-events-none z-40"
       // Top based on index
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, x, y }}
@@ -123,13 +134,13 @@ const ExpandedContent = ({ project, index, selectedProject }) => {
   const isSelected = selectedProject === index
 
   return (
-    <>
+    <div className="relative w-full overflow-hidden">
       <motion.div
         variants={animationVariants.expandedContent}
         initial="initial"
         animate={isSelected ? "animate" : "initial"}
         exit="exit"
-        className="relative top-auto bottom-full"
+        className="relative top-auto bottom-full overflow-hidden"
       >
         <motion.div
           variants={animationVariants.contentItems}
@@ -228,7 +239,7 @@ const ExpandedContent = ({ project, index, selectedProject }) => {
           </motion.div>
         </motion.div>
       </motion.div>
-    </>
+    </div>
   )
 }
 
@@ -252,7 +263,7 @@ const ProjectItem = ({
 
   return (
     <motion.div
-      className="relative top-0 w-full border-b border-b-current/50 py-4 flex justify-between cursor-pointer z-10"
+      className="relative top-0 w-full border-b border-b-current/50 py-4 flex justify-between cursor-pointer z-30 overflow-hidden"
       onMouseEnter={handleHover}
       data-index={index}
       onClick={handleClick}
@@ -337,7 +348,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative w-full min-h-screen flex justify-center items-center px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY bg-[#E6E8EA] text-black"
+      className="relative min-h-[150vh] px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY bg-[#E6E8EA] text-black"
     >
       <div className="relative w-full" onMouseLeave={handleMouseLeave}>
         {/* Centralized image display */}
@@ -354,7 +365,7 @@ export default function Projects() {
         {/* Projects list */}
         <div
           id="project-container"
-          className="relative min-h-screen flex flex-col"
+          className="relative flex flex-col top-[10vh]"
         >
           {projectsList}
         </div>
