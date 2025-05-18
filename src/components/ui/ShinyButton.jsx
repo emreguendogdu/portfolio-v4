@@ -2,7 +2,7 @@
 import { motion } from "motion/react"
 
 export default function ShinyButton({
-  href = "https://linkedin.com/in/emregnd/",
+  href = "/assets/Emre_Gundogdu_CV.pdf",
   className,
   children,
 }) {

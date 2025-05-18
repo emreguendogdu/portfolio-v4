@@ -1,7 +1,7 @@
 import LocalTime, { TimeProvider } from "../ui/LocalTime"
 
 const socials = [
-  { name: "CV", href: "/assets/Emre_Gundogdu_CV_2025.pdf" },
+  { name: "CV", href: "/assets/Emre_Gundogdu_CV.pdf" },
   { name: "Linkedin", href: "https://linkedin.com/in/emregnd/" },
   {
     name: "Github",
