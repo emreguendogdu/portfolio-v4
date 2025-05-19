@@ -16,8 +16,8 @@ const TIMELINE = {
     Y_START: 0.25,
     OPACITY_START: 0.5,
     OPACITY_END: 1,
-    SCALE_START: 0.75,
-    SCALE_END: 1,
+    SCALE_START: 0.65,
+    SCALE_END: 0.85,
   },
 }
 
@@ -45,7 +45,7 @@ export default function About() {
   const triangleWidth = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.TRIANGLE.END],
-    ["200px", isMobile ? "1000px" : "2000px"]
+    ["100vw", isMobile ? "1000px" : "2500px"]
   )
 
   const bodyY = useTransform(
@@ -75,7 +75,7 @@ export default function About() {
     <section
       id="about"
       ref={targetRef}
-      className="min-h-[400vh] bg-black border-t border-white/30 rounded-t-[40px] text-white relative z-10 select-none"
+      className="min-h-[375vh] bg-black border-t border-white/30 rounded-t-[40px] text-white relative z-10 select-none"
     >
       <p className="subheading px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY absolute right-0 top-0">
         (About)
