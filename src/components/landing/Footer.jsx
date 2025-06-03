@@ -1,4 +1,4 @@
-import LocalTime, { TimeProvider } from "../ui/LocalTime"
+import LocalTime, { TimeProvider } from "../ui/LocalTime";
 
 const socials = [
   { name: "CV", href: "/assets/Emre_Gundogdu_CV.pdf" },
@@ -7,8 +7,9 @@ const socials = [
     name: "Github",
     href: "https://github.com/emreguendogdu/",
   },
+  { name: "Dribbble", href: "https://dribbble.com/emregnd/" },
   { name: "hello@emregnd.com", href: "mailto:hello@emregnd.com" },
-]
+];
 
 export default function Footer() {
   return (
@@ -36,5 +37,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
