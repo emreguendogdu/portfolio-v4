@@ -1,4 +1,4 @@
-import LocalTime, { TimeProvider } from "../ui/LocalTime"
+import LocalTime, { TimeProvider } from "../ui/LocalTime";
 
 export default function Header() {
   return (
@@ -46,5 +46,5 @@ export default function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

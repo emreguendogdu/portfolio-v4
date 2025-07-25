@@ -56,7 +56,7 @@ body {
 
   h3,
   .h3 {
-    @apply heading-base tracking-tight text-2xl md:text-4xl;
+    @apply heading-base tracking-tight text-2xl md:text-4xl 2xl:text-6xl;
   }
 
   /* section,

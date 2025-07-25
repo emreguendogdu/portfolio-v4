@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 
 export default function ShinyButton({
   href = "/assets/Emre_Gundogdu_CV.pdf",
@@ -31,10 +31,15 @@ export default function ShinyButton({
       target="_blank"
       rel="noreferrer noopenner"
     >
-      <span className="text-neutral-100 tracking-wide font-extralight text-sm md:text-xl uppercase h-full w-full block relative linear-mask">
+      <span
+        className="text-neutral-100 tracking-wide font-extralight text-sm md:text-xl uppercase h-full w-full block relative linear-mask"
+        style={{
+          fontSize: "clamp(1rem, 1vw, 1.6rem)",
+        }}
+      >
         {children}
       </span>
       <span className="block absolute inset-0 rounded-3xl p-px linear-overlay" />
     </motion.a>
-  )
+  );
 }
