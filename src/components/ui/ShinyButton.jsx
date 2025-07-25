@@ -34,7 +34,7 @@ export default function ShinyButton({
       <span
         className="text-neutral-100 tracking-wide font-extralight text-sm md:text-xl uppercase h-full w-full block relative linear-mask"
         style={{
-          fontSize: "clamp(1rem, 1vw, 1.6rem)",
+          fontSize: "clamp(1rem, 1vw, 1.25rem)",
         }}
       >
         {children}

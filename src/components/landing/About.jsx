@@ -1,7 +1,7 @@
-import { useRef } from "react"
-import { useScroll, motion, useTransform, easeOut } from "motion/react"
-import Triangle from "../ui/Triangle"
-import useMatchMedia from "../../hooks/useMatchMedia"
+import { useRef } from "react";
+import { useScroll, motion, useTransform, easeOut } from "motion/react";
+import Triangle from "../ui/Triangle";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const TIMELINE = {
   ENTRY: {
@@ -19,47 +19,47 @@ const TIMELINE = {
     SCALE_START: 0.65,
     SCALE_END: 0.85,
   },
-}
+};
 
 export default function About() {
-  const targetRef = useRef(null)
+  const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "75% start"],
-  })
+  });
 
-  const isMobile = useMatchMedia("(max-width: 768px)")
+  const { width, height } = useWindowDimensions();
 
   const entryOpacity = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.BODY.OPACITY_START],
     [1, 0]
-  )
+  );
 
   const entryScale = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.TRIANGLE.END],
     [0.75, 1.25]
-  )
+  );
 
   const triangleWidth = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.TRIANGLE.END],
-    ["100vw", isMobile ? "1000px" : "2500px"]
-  )
+    ["100vw", `${width * 1.35}px`]
+  );
 
   const bodyY = useTransform(
     scrollYProgress,
     [TIMELINE.BODY.Y_START, TIMELINE.TRIANGLE.END],
     ["100%", "0%"],
     { ease: easeOut }
-  )
+  );
 
   const bodyScale = useTransform(
     scrollYProgress,
     [TIMELINE.BODY.SCALE_START, TIMELINE.BODY.SCALE_END],
     [1, 0.5]
-  )
+  );
 
   const bodyOpacity = useTransform(
     scrollYProgress,
@@ -69,7 +69,7 @@ export default function About() {
       TIMELINE.BODY.OPACITY_END,
     ],
     [0, 1, 0.5]
-  )
+  );
 
   return (
     <section
@@ -118,5 +118,5 @@ export default function About() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

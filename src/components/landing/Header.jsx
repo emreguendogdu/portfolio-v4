@@ -1,9 +1,16 @@
 import LocalTime, { TimeProvider } from "../ui/LocalTime";
 
+const nav = [
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+  { name: "CV", href: "/assets/Emre_Gundogdu_CV.pdf" },
+];
+
 export default function Header() {
   return (
     <header
-      className="absolute top-0 left-0 right-0 px-8 md:px-12 py-4 md:py-4 z-20"
+      className="absolute top-0 left-0 right-0 px-sectionX-m md:px-sectionX py-4   md:py-4 z-20"
       id="landing-header"
     >
       <div className="relative flex justify-between">
@@ -27,21 +34,14 @@ export default function Header() {
         </div>
         <nav>
           <ul className="relative flex flex-col md:flex-row">
-            <li>
-              <a href="/" className="nav-link">
-                Home,&nbsp;
-              </a>
-            </li>
-            <li>
-              <a href="#projects" className="nav-link">
-                Projects,&nbsp;
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="nav-link">
-                Contact
-              </a>
-            </li>
+            {nav.map((item, index) => (
+              <li key={`nav_${index}`}>
+                <a href={item.href} className="nav-link">
+                  {item.name}
+                  {index < nav.length - 1 && ","}&nbsp;
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

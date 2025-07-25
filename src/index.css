@@ -85,10 +85,10 @@ body {
 }
 
 @theme {
-  --spacing-sectionX-m: 0.5rem;
-  --spacing-sectionX: 8rem;
-  --spacing-sectionY-m: 1rem;
-  --spacing-sectionY: 2rem;
+  --spacing-sectionX-m: 1.5625rem;
+  --spacing-sectionX: 3.125rem;
+  --spacing-sectionY-m: 6.25rem;
+  --spacing-sectionY: 12.5rem;
   --animate-scroll: scroll 2s ease infinite;
 
   @keyframes scroll {

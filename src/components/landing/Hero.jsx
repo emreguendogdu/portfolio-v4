@@ -39,33 +39,33 @@ export default function Hero() {
       <StarryHeroBackground />
       <section
         id="hero"
-        className="relative bg-transparent text-[#f7f7f7] px-8 md:px-12"
+        className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX"
       >
         <motion.div
-          className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:py-48 gap-8"
+          className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:pt-sectionY gap-[25rem]"
           id="hero-content"
         >
-          <div className="select-none flex flex-col gap-4 2xl:gap-8">
+          <div className="select-none flex flex-col gap-4 2xl:gap-4">
             <h1
-              className="relative w-full uppercase text-left md:text-center leading-none whitespace-nowrap"
+              className="relative w-full uppercase text-left leading-none whitespace-nowrap"
               style={{
                 letterSpacing: "clamp(-0.05em, -0.15em, -0.25em)",
-                fontSize: "clamp(2rem, 11.5vw, 32rem)",
+                fontSize: "clamp(2rem, 11.5vw, 8rem)",
               }}
             >
               <span>Emre</span> <span>Gundogdu</span>
             </h1>
 
-            <h2 className="h3 leading-none text-left md:text-center mt-2 md:mt-0 font-semibold">
+            <h2 className="h3 font-thin leading-none text-left uppercase tracking-tight">
               Front End Developer
             </h2>
           </div>
           <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
             <div id="left-div" className="relative">
               <p
-                className="w-full text-left md:w-[50%] md:text-justify font-extralight"
+                className="w-full text-left md:w-[33%] md:text-justify font-extralight"
                 style={{
-                  fontSize: "clamp(1rem, 1vw, 1.6rem)",
+                  fontSize: "clamp(1rem, 1vw, 1.25rem)",
                 }}
               >
                 I build immersive and high-performing web experiences with React

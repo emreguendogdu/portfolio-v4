@@ -1,56 +1,56 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
-const starCount = 600
+const starCount = 600;
 
 export default function StarryBackground() {
-  const canvasRef = useRef(null)
-  let stars = useRef([])
+  const canvasRef = useRef(null);
+  let stars = useRef([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      generateStars()
-    }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      generateStars();
+    };
 
     const generateStars = () => {
       stars.current = Array.from({ length: starCount }).map(() => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 1,
-        speed: 0.1, // Slow-moving effect
-      }))
-    }
+        size: Math.random() * 1.1,
+        speed: 0.175, // Slow-moving effect
+      }));
+    };
 
     const animateStars = () => {
-      if (!ctx) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       stars.current.forEach((star) => {
-        star.x -= star.speed
-        if (star.x < 0) star.x = canvas.width // Reset star when it moves out
+        star.x -= star.speed;
+        if (star.x < 0) star.x = canvas.width; // Reset star when it moves out
 
-        ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 1 + 0.5})`
-        ctx.beginPath()
-        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI)
-        ctx.fill()
-      })
+        ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 1 + 0.75})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+        ctx.fill();
+      });
 
-      requestAnimationFrame(animateStars)
-    }
+      requestAnimationFrame(animateStars);
+    };
 
-    resizeCanvas()
-    animateStars()
+    resizeCanvas();
+    animateStars();
 
-    window.addEventListener("resize", resizeCanvas)
-    return () => window.removeEventListener("resize", resizeCanvas)
-  }, [])
+    window.addEventListener("resize", resizeCanvas);
+    return () => window.removeEventListener("resize", resizeCanvas);
+  }, []);
 
   return (
     <div
@@ -59,5 +59,5 @@ export default function StarryBackground() {
     >
       <canvas ref={canvasRef} className="absolute top-0 left-0" />
     </div>
-  )
+  );
 }
