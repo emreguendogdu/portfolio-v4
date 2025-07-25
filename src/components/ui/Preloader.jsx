@@ -1,11 +1,4 @@
-import {
-  animate,
-  AnimatePresence,
-  backIn,
-  circIn,
-  circOut,
-  motion,
-} from "motion/react"
+import { animate, AnimatePresence, motion } from "motion/react"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
 import { useEffect, useState } from "react"
 

@@ -104,13 +104,6 @@ export default function Hero() {
               </ShinyButton>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={handleAnimate}
-            className="px-4 py-2 rounded text-neutral-500 z-[999] cursor-pointer hover:text-neutral-200 transition-colors text-sm font-medium absolute top-0 left-1/2 -translate-x-1/2"
-          >
-            Reanimate
-          </button>
           <div
             className="absolute bottom-0 translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m overflow-hidden"
             id="scroll-down-icon-wrapper"
