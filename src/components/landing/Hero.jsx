@@ -42,7 +42,7 @@ export default function Hero() {
         className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX"
       >
         <motion.div
-          className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:pt-sectionY gap-[25rem]"
+          className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:pt-lg gap-[25rem]"
           id="hero-content"
         >
           <div className="select-none flex flex-col gap-4 2xl:gap-4">
@@ -83,7 +83,7 @@ export default function Hero() {
             </div>
           </div>
           <div
-            className="absolute bottom-4 left-1/2 -translate-y-1/2 text-5xl text-neutral-200"
+            className="absolute bottom-0   translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m"
             id="scroll-down-icon"
             aria-hidden
           >
@@ -98,7 +98,7 @@ export default function Hero() {
                 strokeLinejoin: "round",
                 strokeMiterlimit: 1.5,
               }}
-              className="w-7 md:w-10 mb-2"
+              className="w-7 md:w-10 "
             >
               <path
                 id="wheel"

@@ -89,6 +89,8 @@ body {
   --spacing-sectionX: 3.125rem;
   --spacing-sectionY-m: 6.25rem;
   --spacing-sectionY: 12.5rem;
+  --spacing-lg: 18.75rem;
+  --spacing-xl: 25rem;
   --animate-scroll: scroll 2s ease infinite;
 
   @keyframes scroll {
