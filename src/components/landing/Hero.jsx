@@ -1,16 +1,10 @@
-import {
-  animate,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { animate, motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef } from "react";
 import ShinyButton from "../ui/ShinyButton";
 import StarryHeroBackground from "./StarryBackground";
-import { PRELOADER_DURATION } from "../ui/NewPreloader";
+import { PRELOADER_DELAY, PRELOADER_DURATION } from "../ui/NewPreloader";
 
-const ANIMATION_DELAY = PRELOADER_DURATION + 0.25;
+const ANIMATION_DELAY = PRELOADER_DURATION + PRELOADER_DELAY;
 
 const animation = {
   opacity: [0, 1],

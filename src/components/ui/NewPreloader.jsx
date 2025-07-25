@@ -3,8 +3,8 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
-const PRELOADER_DELAY = 0.0625;
-export const PRELOADER_DURATION = 1.5;
+export const PRELOADER_DELAY = 0.125;
+export const PRELOADER_DURATION = 0.652;
 
 export default function Preloader() {
   const { width, height } = useWindowDimensions();
@@ -27,8 +27,8 @@ export default function Preloader() {
       initial={{ opacity: 1, backgroundColor: "#1c1d20" }}
       animate={{ opacity: 0, backgroundColor: "black" }}
       transition={{
-        delay: PRELOADER_DURATION - 0.25,
-        duration: 0.25,
+        delay: PRELOADER_DURATION,
+        duration: 0.2,
         ease: "easeIn",
       }}
       onAnimationComplete={() => setIsVisible(false)}
