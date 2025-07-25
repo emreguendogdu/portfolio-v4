@@ -1,54 +1,63 @@
-import { animate, motion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef } from "react";
-import ShinyButton from "../ui/ShinyButton";
-import StarryHeroBackground from "./StarryBackground";
-import { PRELOADER_DELAY, PRELOADER_DURATION } from "../ui/NewPreloader";
+import { animate, motion, useScroll, useTransform } from "motion/react"
+import { useEffect, useRef } from "react"
+import ShinyButton from "../ui/ShinyButton"
+import StarryHeroBackground from "./StarryBackground"
+import { PRELOADER_DURATION } from "../ui/Preloader"
 
-const ANIMATION_DELAY = PRELOADER_DURATION + PRELOADER_DELAY;
+const ANIMATION_DELAY = PRELOADER_DURATION
 
 const animation = {
   opacity: [0, 1],
   y: ["100%", "0%"],
-};
-const transition = (duration = 1, delay = ANIMATION_DELAY) => {
+}
+
+const reverseAnimation = {
+  opacity: [0, 1],
+  y: ["-100%", "0%"],
+}
+
+const transition = (duration = 1, delay) => {
   return {
     duration,
-    delay,
+    delay: ANIMATION_DELAY - 0.32 + delay,
     ease: [0.76, 0, 0.24, 1],
-  };
-};
+  }
+}
+
+const handleAnimate = () => {
+  animate("#hero h1 span:first-child", animation, transition(1, 0))
+  animate("#hero h1 span:last-child", reverseAnimation, transition(1, 0.06225))
+  animate("#hero h2 span", animation, transition(1, 0.125))
+  animate("header", reverseAnimation, transition(1, 0.675))
+  animate("#right-div", { opacity: [0, 1] }, transition(1, 0.375))
+  animate("#left-div", { opacity: [0, 1] }, transition(1, 0.5))
+  animate(
+    "#scroll-down-icon-wrapper svg path",
+    { pathLength: [0, 1], opacity: [0, 1] },
+    transition(1, 0.375)
+  )
+}
 
 export default function Hero() {
-  const heroRef = useRef(null);
+  const heroRef = useRef(null)
 
   useEffect(() => {
-    animate("#hero h1 span:first-child", animation, transition(1));
-    animate("#hero h1 span:last-child", animation, transition(1));
-    animate("#hero h2", animation, transition(1));
-    animate("header", { opacity: [0, 1], y: ["-100%", 0] }, transition(1));
-    animate("#right-div", { opacity: [0, 1] }, transition(1));
-    animate("#left-div", { opacity: [0, 1] }, transition(1));
-    animate(
-      "#scroll-down-icon",
-      { opacity: [0, 1], y: ["100%", 0] },
-      transition(1)
-    );
-    animate("#starry-bg", { opacity: [0, 1] }, transition(1));
-  }, []);
+    handleAnimate()
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
-  });
+  })
 
-  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.5])
 
   return (
     <>
       <StarryHeroBackground scale={starryBgScale} />
       <section
         id="hero"
-        className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX"
+        className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX z-[999]"
         ref={heroRef}
       >
         <motion.div
@@ -57,26 +66,20 @@ export default function Hero() {
         >
           <div className="select-none flex flex-col gap-4 2xl:gap-4">
             <h1
-              className="relative w-full uppercase text-left leading-none whitespace-nowrap oveflow-hidden"
+              className="relative w-full uppercase text-left leading-none whitespace-nowrap overflow-hidden"
               style={{
                 letterSpacing: "clamp(-0.05em, -0.15em, -0.25em)",
                 fontSize: "clamp(2.5rem, 7.5vw, 8rem)",
               }}
             >
-              <motion.span
-                initial={{ y: "100%" }}
-                className="inline-block"
-                animate={{ y: ["100%", 0] }}
-              >
-                Emre
-              </motion.span>{" "}
-              <motion.span initial={{ y: "100%" }} animate={{ y: ["100%", 0] }}>
-                Gundogdu
-              </motion.span>
+              <motion.span className="inline-block">Emre</motion.span>{" "}
+              <motion.span className="inline-block">Gundogdu</motion.span>
             </h1>
 
-            <h2 className="h3 font-thin leading-none text-left uppercase tracking-tight">
-              Front End Developer
+            <h2 className="h3 font-thin leading-none text-left uppercase tracking-tight overflow-hidden">
+              <motion.span className="inline-block">
+                Front End Developer
+              </motion.span>
             </h2>
           </div>
           <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
@@ -101,9 +104,16 @@ export default function Hero() {
               </ShinyButton>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={handleAnimate}
+            className="px-4 py-2 rounded text-neutral-500 z-[999] cursor-pointer hover:text-neutral-200 transition-colors text-sm font-medium absolute top-0 left-1/2 -translate-x-1/2"
+          >
+            Reanimate
+          </button>
           <div
-            className="absolute bottom-0   translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m"
-            id="scroll-down-icon"
+            className="absolute bottom-0 translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m overflow-hidden"
+            id="scroll-down-icon-wrapper"
             aria-hidden
           >
             <svg
@@ -117,7 +127,7 @@ export default function Hero() {
                 strokeLinejoin: "round",
                 strokeMiterlimit: 1.5,
               }}
-              className="w-7 md:w-10 "
+              className="w-7 md:w-10"
             >
               <path
                 id="wheel"
@@ -134,5 +144,5 @@ export default function Hero() {
         </motion.div>
       </section>
     </>
-  );
+  )
 }
