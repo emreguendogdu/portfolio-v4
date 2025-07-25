@@ -1,8 +1,14 @@
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { useEffect, useRef } from "react";
 
-const starCount = 600;
+const starCount = 777;
 
-export default function StarryBackground() {
+export default function StarryBackground({ scale }) {
   const canvasRef = useRef(null);
   let stars = useRef([]);
 
@@ -23,8 +29,8 @@ export default function StarryBackground() {
       stars.current = Array.from({ length: starCount }).map(() => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 1.1,
-        speed: 0.175, // Slow-moving effect
+        size: Math.random() * 0.8,
+        speed: 0.259, // Slow-moving effect
       }));
     };
 
@@ -53,11 +59,12 @@ export default function StarryBackground() {
   }, []);
 
   return (
-    <div
+    <motion.div
       className="absolute w-full h-screen bg-black -z-10 overflow-hidden"
       id="starry-bg"
+      style={{ scale }}
     >
       <canvas ref={canvasRef} className="absolute top-0 left-0" />
-    </div>
+    </motion.div>
   );
 }

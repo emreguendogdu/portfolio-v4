@@ -1,14 +1,22 @@
-import { animate, motion } from "motion/react";
-import { useEffect } from "react";
+import {
+  animate,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import { useEffect, useRef } from "react";
 import ShinyButton from "../ui/ShinyButton";
 import StarryHeroBackground from "./StarryBackground";
 import { PRELOADER_DURATION } from "../ui/NewPreloader";
 
+const ANIMATION_DELAY = PRELOADER_DURATION + 0.25;
+
 const animation = {
   opacity: [0, 1],
-  x: ["100%", "0%"],
+  y: ["100%", "0%"],
 };
-const transition = (duration = 1, delay = 0) => {
+const transition = (duration = 1, delay = ANIMATION_DELAY) => {
   return {
     duration,
     delay,
@@ -17,38 +25,37 @@ const transition = (duration = 1, delay = 0) => {
 };
 
 export default function Hero() {
+  const heroRef = useRef(null);
+
   useEffect(() => {
-    animate("#hero h1", animation, transition(1, PRELOADER_DURATION + 0.5));
-    animate("#hero h2", animation, transition(1, PRELOADER_DURATION + 0.5));
-    animate(
-      "header",
-      { opacity: [0, 1], y: ["-100%", 0] },
-      transition(1, PRELOADER_DURATION + 1.25)
-    );
-    animate(
-      "#right-div",
-      { opacity: [0, 1] },
-      transition(1, PRELOADER_DURATION + 1)
-    );
-    animate(
-      "#left-div",
-      { opacity: [0, 1] },
-      transition(1, PRELOADER_DURATION + 1)
-    );
+    animate("#hero h1 span:first-child", animation, transition(1));
+    animate("#hero h1 span:last-child", animation, transition(1));
+    animate("#hero h2", animation, transition(1));
+    animate("header", { opacity: [0, 1], y: ["-100%", 0] }, transition(1));
+    animate("#right-div", { opacity: [0, 1] }, transition(1));
+    animate("#left-div", { opacity: [0, 1] }, transition(1));
     animate(
       "#scroll-down-icon",
       { opacity: [0, 1], y: ["100%", 0] },
-      transition(1, PRELOADER_DURATION + 1.15)
+      transition(1)
     );
-    animate("#starry-bg", { opacity: [0, 1] }, transition(2));
+    animate("#starry-bg", { opacity: [0, 1] }, transition(1));
   }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
 
   return (
     <>
-      <StarryHeroBackground />
+      <StarryHeroBackground scale={starryBgScale} />
       <section
         id="hero"
         className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX"
+        ref={heroRef}
       >
         <motion.div
           className="relative h-screen flex flex-col items-stretch justify-end md:justify-between lg:justify-between md:items-stretch py-sectionY-m md:pt-lg gap-md md:gap-lg"
@@ -56,13 +63,22 @@ export default function Hero() {
         >
           <div className="select-none flex flex-col gap-4 2xl:gap-4">
             <h1
-              className="relative w-full uppercase text-left leading-none whitespace-nowrap"
+              className="relative w-full uppercase text-left leading-none whitespace-nowrap oveflow-hidden"
               style={{
                 letterSpacing: "clamp(-0.05em, -0.15em, -0.25em)",
                 fontSize: "clamp(2.5rem, 7.5vw, 8rem)",
               }}
             >
-              <span>Emre</span> <span>Gundogdu</span>
+              <motion.span
+                initial={{ y: "100%" }}
+                className="inline-block"
+                animate={{ y: ["100%", 0] }}
+              >
+                Emre
+              </motion.span>{" "}
+              <motion.span initial={{ y: "100%" }} animate={{ y: ["100%", 0] }}>
+                Gundogdu
+              </motion.span>
             </h1>
 
             <h2 className="h3 font-thin leading-none text-left uppercase tracking-tight">
