@@ -2,12 +2,13 @@ import { animate, motion } from "motion/react";
 import { useEffect } from "react";
 import ShinyButton from "../ui/ShinyButton";
 import StarryHeroBackground from "./StarryBackground";
+import { PRELOADER_DURATION } from "../ui/NewPreloader";
 
 const animation = {
   opacity: [0, 1],
   x: ["100%", "0%"],
 };
-const transition = (duration = 1.5, delay = 0) => {
+const transition = (duration = 1, delay = 0) => {
   return {
     duration,
     delay,
@@ -17,19 +18,27 @@ const transition = (duration = 1.5, delay = 0) => {
 
 export default function Hero() {
   useEffect(() => {
-    animate("#hero h1", animation, transition(1.5, 0.1));
-    animate("#hero h2", animation, transition(1.5, 0.1));
+    animate("#hero h1", animation, transition(1, PRELOADER_DURATION + 0.5));
+    animate("#hero h2", animation, transition(1, PRELOADER_DURATION + 0.5));
     animate(
       "header",
       { opacity: [0, 1], y: ["-100%", 0] },
-      transition(1, 1.25)
+      transition(1, PRELOADER_DURATION + 1.25)
     );
-    animate("#right-div", { opacity: [0, 1] }, transition(1, 1));
-    animate("#left-div", { opacity: [0, 1] }, transition(1, 1));
+    animate(
+      "#right-div",
+      { opacity: [0, 1] },
+      transition(1, PRELOADER_DURATION + 1)
+    );
+    animate(
+      "#left-div",
+      { opacity: [0, 1] },
+      transition(1, PRELOADER_DURATION + 1)
+    );
     animate(
       "#scroll-down-icon",
       { opacity: [0, 1], y: ["100%", 0] },
-      transition(1, 1.15)
+      transition(1, PRELOADER_DURATION + 1.15)
     );
     animate("#starry-bg", { opacity: [0, 1] }, transition(2));
   }, []);
@@ -42,7 +51,7 @@ export default function Hero() {
         className="relative bg-transparent text-[#f7f7f7] px-sectionX-m md:px-sectionX"
       >
         <motion.div
-          className="relative h-screen flex flex-col items-center justify-center md:justify-between md:items-stretch py-sectionY-m md:pt-lg gap-[25rem]"
+          className="relative h-screen flex flex-col items-stretch justify-end md:justify-between lg:justify-between md:items-stretch py-sectionY-m md:pt-lg gap-md md:gap-lg"
           id="hero-content"
         >
           <div className="select-none flex flex-col gap-4 2xl:gap-4">
@@ -50,7 +59,7 @@ export default function Hero() {
               className="relative w-full uppercase text-left leading-none whitespace-nowrap"
               style={{
                 letterSpacing: "clamp(-0.05em, -0.15em, -0.25em)",
-                fontSize: "clamp(2rem, 11.5vw, 8rem)",
+                fontSize: "clamp(2.5rem, 7.5vw, 8rem)",
               }}
             >
               <span>Emre</span> <span>Gundogdu</span>
@@ -63,7 +72,7 @@ export default function Hero() {
           <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
             <div id="left-div" className="relative">
               <p
-                className="w-full text-left md:w-[33%] md:text-justify font-extralight"
+                className="w-full text-left md:w-1/2 lg:w-[33%] md:text-justify font-extralight"
                 style={{
                   fontSize: "clamp(1rem, 1vw, 1.25rem)",
                 }}

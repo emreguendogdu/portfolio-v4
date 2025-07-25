@@ -56,7 +56,7 @@ body {
 
   h3,
   .h3 {
-    @apply heading-base tracking-tight text-2xl md:text-4xl 2xl:text-6xl;
+    @apply heading-base tracking-tight text-[clamp(1.5rem,4vw,3.75rem)];
   }
 
   /* section,
@@ -89,6 +89,9 @@ body {
   --spacing-sectionX: 3.125rem;
   --spacing-sectionY-m: 6.25rem;
   --spacing-sectionY: 12.5rem;
+  --spacing-xs: 2.34375rem;
+  --spacing-sm: 4.6875rem;
+  --spacing-md: 9.375rem;
   --spacing-lg: 18.75rem;
   --spacing-xl: 25rem;
   --animate-scroll: scroll 2s ease infinite;

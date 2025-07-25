@@ -45,7 +45,7 @@ export default function About() {
   const triangleWidth = useTransform(
     scrollYProgress,
     [TIMELINE.TRIANGLE.START, TIMELINE.TRIANGLE.END],
-    ["100vw", `${width * 1.35}px`]
+    ["100vw", `${width * 2}px`]
   );
 
   const bodyY = useTransform(
@@ -71,6 +71,8 @@ export default function About() {
     [0, 1, 0.5]
   );
 
+  console.log("width", width);
+
   return (
     <section
       id="about"
@@ -94,7 +96,7 @@ export default function About() {
         </motion.div>
 
         <Triangle
-          style={{ "--width": triangleWidth, opacity: 0.2 }}
+          style={{ "--width": triangleWidth, opacity: 0.3 }}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-[#e4e4e6]"
         />
 

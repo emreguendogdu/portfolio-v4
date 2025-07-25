@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { motion } from "motion/react"
-import { useEffect } from "react"
-import { anim } from "../../utils/utils"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
+import { motion } from "motion/react";
+import { useEffect } from "react";
+import { anim } from "../../utils/utils";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const SVG = ({ width, height }) => {
   const initialPath = `
@@ -11,14 +11,14 @@ const SVG = ({ width, height }) => {
     L ${width} ${height}
     Q ${width + 300} ${height / 2} ${width} 0
     Z
-  `
+  `;
   const targetPath = `
     M 0 0
     Q 0 ${height / 2} 0 ${height}
     L ${width} ${height}
     Q ${width} ${height / 2} ${width} 0
     Z
-  `
+  `;
 
   const slide = {
     initial: {
@@ -28,7 +28,7 @@ const SVG = ({ width, height }) => {
       left: "-100vw",
       transition: { duration: 1.5, delay: 0, ease: [0.76, 0, 0.24, 1] },
     },
-  }
+  };
 
   const curve = {
     initial: { d: initialPath },
@@ -36,7 +36,7 @@ const SVG = ({ width, height }) => {
       d: targetPath,
       transition: { duration: 0.5, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
     },
-  }
+  };
 
   return (
     <motion.svg
@@ -46,19 +46,19 @@ const SVG = ({ width, height }) => {
     >
       <motion.path {...anim(curve)} fill="currentColor" />
     </motion.svg>
-  )
-}
+  );
+};
 
 export default function Preloader() {
-  const dimensions = useWindowDimensions()
+  const dimensions = useWindowDimensions();
 
   // Scroll to top on load
   useEffect(() => {
-    if (!window) return
+    if (!window) return;
     setTimeout(function () {
-      window.scrollTo(0, 0)
-    }, 300)
-  }, [])
+      window.scrollTo(0, 0);
+    }, 300);
+  }, []);
 
   // Block scrolling, reactivate when animation ends
 
@@ -75,5 +75,5 @@ export default function Preloader() {
       />
       {dimensions.width > 0 && <SVG {...dimensions} />}
     </motion.div>
-  )
+  );
 }
