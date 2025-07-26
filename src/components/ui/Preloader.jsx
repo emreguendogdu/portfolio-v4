@@ -3,7 +3,7 @@ import useWindowDimensions from "../../hooks/useWindowDimensions"
 import { useEffect, useState } from "react"
 
 export const PRELOADER_DELAY = 0.25
-export const PRELOADER_DURATION = 1.54
+export const PRELOADER_DURATION = 1.24
 
 export default function Preloader() {
   const { width } = useWindowDimensions()
@@ -38,7 +38,7 @@ export default function Preloader() {
       {
         duration: PRELOADER_DURATION - 0.6,
         delay: 0.1,
-        ease: [0.36, 0, 0.66, -0.1618],
+        ease: [0.36, 0, 0.66, -0.25],
       }
     )
   }
@@ -47,12 +47,22 @@ export default function Preloader() {
     handleAnimate()
   }, [])
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflowY = "hidden"
+    } else {
+      setTimeout(() => {
+        document.body.style.overflowY = "auto"
+      }, 500)
+    }
+  }, [isVisible])
+
   return (
     <AnimatePresence mode="wait">
       {isVisible && (
         <motion.div
           id="preloader"
-          className={`absolute inset-0 h-[100dvh] w-full text-[#000] bg-[#1c1d20] flex items-center justify-center z-50 overflow-hidden`}
+          className={`fixed inset-0 h-[100dvh] w-full text-[#000] bg-[#1c1d20] flex items-center justify-center z-50 overflow-hidden`}
           initial={{ opacity: 1, backgroundColor: "#1c1d20" }}
           animate={{ opacity: 0, backgroundColor: "transparent" }}
           transition={{

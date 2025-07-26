@@ -42,7 +42,7 @@ const ProjectImage = ({ project }) => {
 
 const Project = ({ project }) => {
   return (
-    <article className="w-full flex flex-col gap-2 items-center py-16 md:py-12 select-none box-border border-b border-neutral-800 last:border-b-0">
+    <article className="w-full flex flex-col gap-2 items-center select-none box-border">
       <div className="w-full max-w-3xl aspect-video mx-auto">
         <ProjectImage project={project} />
       </div>
@@ -60,19 +60,18 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative bg-black px-sectionX-m md:px-sectionX py-sectionY-m md:py-sectionY text-white min-h-screen z-10 mb-4 -mt-[100dvh]"
+      className="relative bg-linear-to-b to-[#1c1d20] from-[#000] px-sectionX-m md:px-sectionX py-sectionY-m md:pt-sectionY md:pb-xs text-white min-h-screen z-10 -mt-[100dvh] pt-[100dvh]"
     >
-      <p className="subheading mb-8">(Featured Projects)</p>
-      <div className="grid grid-cols-2 gap-8 w-1/2">
-        {projects.map((project, idx) => (
-          <Project key={project.name} project={project} index={idx} />
-        ))}
+      <div className="flex justify-between">
+        <div className="grid grid-cols-2 gap-x-sm gap-y-md w-1/2">
+          {projects.map((project, idx) => (
+            <Project key={project.name} project={project} index={idx} />
+          ))}
+        </div>
+        <p className="subheading">(Featured Projects)</p>
       </div>
-      <div className="flex gap-4 items-center relative mt-sm">
-        <ShinyButton
-          href="mailto:hello@emregnd.com"
-          className="!absolute bottom-2 left-1/4 -translate-x-1/2 w-fit"
-        >
+      <div className="flex justify-center items-center w-1/2 relative mt-sm">
+        <ShinyButton href="mailto:hello@emregnd.com" className="text-center">
           Hire Me
         </ShinyButton>
       </div>

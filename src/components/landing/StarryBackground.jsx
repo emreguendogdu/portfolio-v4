@@ -1,7 +1,7 @@
 import { motion } from "motion/react"
 import { useEffect, useRef } from "react"
 
-const starCount = 777
+const starCount = 1618
 
 export default function StarryBackground({ scale }) {
   const canvasRef = useRef(null)
@@ -24,7 +24,7 @@ export default function StarryBackground({ scale }) {
       stars.current = Array.from({ length: starCount }).map(() => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 0.8,
+        size: Math.random() * 1.1,
         speed: 0.259, // Slow-moving effect
       }))
     }

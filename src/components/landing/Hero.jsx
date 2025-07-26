@@ -4,8 +4,6 @@ import ShinyButton from "../ui/ShinyButton"
 import StarryHeroBackground from "./StarryBackground"
 import { PRELOADER_DURATION } from "../ui/Preloader"
 
-const ANIMATION_DELAY = PRELOADER_DURATION
-
 const animation = {
   opacity: [0, 1],
   y: ["100%", "0%"],
@@ -19,7 +17,7 @@ const reverseAnimation = {
 const transition = (duration = 1, delay) => {
   return {
     duration,
-    delay: ANIMATION_DELAY - 0.32 + delay,
+    delay: PRELOADER_DURATION - 0.32 + delay,
     ease: [0.76, 0, 0.24, 1],
   }
 }
@@ -61,10 +59,10 @@ export default function Hero() {
         ref={heroRef}
       >
         <motion.div
-          className="relative h-screen flex flex-col items-stretch justify-end md:justify-between lg:justify-between md:items-stretch py-sectionY-m md:pt-lg gap-md md:gap-lg"
+          className="relative min-h-[100dvh] flex flex-col items-stretch justify-end md:items-stretch py-sectionY-m gap-xs md:gap-sm lg:gap-lg"
           id="hero-content"
         >
-          <div className="select-none flex flex-col gap-4 2xl:gap-4">
+          <div className="select-none flex flex-col gap-4 xl:gap-4">
             <h1
               className="relative w-full uppercase text-left leading-none whitespace-nowrap overflow-hidden"
               style={{
@@ -85,7 +83,7 @@ export default function Hero() {
           <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
             <div id="left-div" className="relative">
               <p
-                className="w-full text-left md:w-1/2 lg:w-[33%] md:text-justify font-extralight"
+                className="w-4/5 text-left md:w-1/2 xl:w-[33%] md:text-justify font-extralight"
                 style={{
                   fontSize: "clamp(1rem, 1vw, 1.25rem)",
                 }}
@@ -105,7 +103,7 @@ export default function Hero() {
             </div>
           </div>
           <div
-            className="absolute bottom-0 translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m overflow-hidden"
+            className="absolute hidden bottom-0 translate-y-1/2 left-1/2 text-5xl text-neutral-200 mb-sectionY-m overflow-hidden"
             id="scroll-down-icon-wrapper"
             aria-hidden
           >

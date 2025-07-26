@@ -1,4 +1,4 @@
-import LocalTime, { TimeProvider } from "../ui/LocalTime";
+import LocalTime, { TimeProvider } from "../ui/LocalTime"
 
 const socials = [
   { name: "CV", href: "/assets/Emre_Gundogdu_CV.pdf" },
@@ -9,11 +9,14 @@ const socials = [
   },
   { name: "Dribbble", href: "https://dribbble.com/emregnd/" },
   { name: "hello@emregnd.com", href: "mailto:hello@emregnd.com" },
-];
+]
 
 export default function Footer() {
   return (
-    <footer id="contact" className="flex items-end bg-black text-white text-sm">
+    <footer
+      id="contact"
+      className="flex items-end bg-[#1c1d20] text-white text-sm"
+    >
       <div className="w-full flex justify-between items-start md:items-end border-t border-t-neutral-800 py-4 px-sectionX-m md:px-sectionX">
         <ul className="flex flex-col md:flex-row md:gap-4">
           {socials.map((social, index) => (
@@ -37,5 +40,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
