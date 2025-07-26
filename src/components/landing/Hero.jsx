@@ -48,7 +48,7 @@ export default function Hero() {
     offset: ["start start", "end start"],
   })
 
-  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.5])
+  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.25])
 
   return (
     <>
