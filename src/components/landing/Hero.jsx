@@ -59,7 +59,7 @@ export default function Hero() {
         ref={heroRef}
       >
         <motion.div
-          className="relative min-h-[100dvh] flex flex-col items-stretch justify-end md:items-stretch py-sectionY-m gap-xs md:gap-sm lg:gap-lg"
+          className="relative min-h-[100dvh] flex flex-col items-stretch justify-end md:items-stretch py-sectionY-m gap-xs md:gap-xl"
           id="hero-content"
         >
           <div className="select-none flex flex-col gap-4 xl:gap-4">
