@@ -5,19 +5,21 @@ import { motion } from "motion/react"
  * Defines the animation variants for the container of the hover lines.
  * This controls the staggering of the children animations.
  */
+
+const staggerDuration = 0.03885
 const lineContainerVariants = {
   initial: {
     "--x": "100%",
     transition: {
-      staggerChildren: 0.077, // Stagger children when animating out
-      delayChildren: 0.077, // Small delay before lines start animating out
+      staggerChildren: staggerDuration, // Stagger children when animating out
+      delayChildren: staggerDuration, // Small delay before lines start animating out
       staggerDirection: -1, // Animate out in reverse order
     },
   },
   hover: {
     transition: {
-      staggerChildren: 0.077, // Time delay between each child animating in
-      delayChildren: 0.077, // A small delay before the first line starts animating
+      staggerChildren: staggerDuration, // Time delay between each child animating in
+      delayChildren: staggerDuration, // A small delay before the first line starts animating
     },
   },
 }

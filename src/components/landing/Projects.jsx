@@ -63,17 +63,17 @@ export default function Projects() {
       className="relative bg-linear-to-b to-[#1c1d20] from-[#000] px-sectionX-m lg:px-sectionX py-sectionY-m lg:pt-sectionY lg:pb-xs text-white min-h-screen z-10 -mt-[100dvh] pt-[100dvh]"
     >
       <div className="flex flex-col-reverse lg:flex-row justify-start items-start gap-sm lg:justify-between">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-sm gap-y-md w-full sm:w-3/4 sm:self-center lg:w-1/2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-xs gap-y-sm xl:gap-x-sm xl:gap-y-md w-full sm:w-3/4 sm:self-center lg:w-3/4 xl:flex-1">
           {projects.map((project, idx) => (
             <Project key={project.name} project={project} index={idx} />
           ))}
         </div>
-        <p className="subheading">(Featured Projects)</p>
+        <p className="subheading xl:flex-1">(Featured Projects)</p>
       </div>
-      <div className="flex justify-center items-center self-center w-full lg:w-1/2 relative mt-sm">
+      <div className="flex items-center w-full lg:w-1/2 relative mt-xs">
         <ShinyButton
           href="mailto:hello@emregnd.com"
-          className="text-center self-center lg:self-auto"
+          className="text-center w-full"
         >
           Hire Me
         </ShinyButton>

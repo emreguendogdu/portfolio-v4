@@ -137,9 +137,9 @@ body {
 .linear-overlay {
   background-image: linear-gradient(
     -75deg,
-    rgba(var(--overlay-color), 0.1) calc(var(--x) + 20%),
-    rgba(var(--overlay-color), 0.5) calc(var(--x) + 25%),
-    rgba(var(--overlay-color), 0.1) calc(var(--x) + 100%)
+    rgba(var(--overlay-color), 0.5) calc(var(--x) + 20%),
+    rgba(var(--overlay-color), 0.75) calc(var(--x) + 25%),
+    rgba(var(--overlay-color), 0.5) calc(var(--x) + 100%)
   );
   mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
   -webkit-mask: linear-gradient(black, black) content-box,

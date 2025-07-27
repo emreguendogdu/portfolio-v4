@@ -1,16 +1,16 @@
-import LocalTime, { TimeProvider } from "../ui/LocalTime";
+import LocalTime, { TimeProvider } from "../ui/LocalTime"
 
 const nav = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
   { name: "CV", href: "/assets/Emre_Gundogdu_CV.pdf" },
-];
+]
 
 export default function Header() {
   return (
     <header
-      className="absolute top-0 left-0 right-0 px-sectionX-m md:px-sectionX py-4   md:py-4 z-20"
+      className="absolute top-0 left-0 right-0 px-sectionX-m md:px-sectionX py-4 z-20"
       id="landing-header"
     >
       <div className="relative flex justify-between">
@@ -46,5 +46,5 @@ export default function Header() {
         </nav>
       </div>
     </header>
-  );
+  )
 }
