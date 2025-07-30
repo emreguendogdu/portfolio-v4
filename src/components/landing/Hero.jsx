@@ -26,7 +26,7 @@ const handleAnimate = () => {
   animate("#hero h1 span:first-child", animation, transition(1, 0));
   animate("#hero h1 span:last-child", reverseAnimation, transition(1, 0.06225));
   animate("#hero h2 span", animation, transition(1, 0.125));
-  animate("header", reverseAnimation, transition(1, 0.675));
+  animate("header#landing-header", reverseAnimation, transition(1, 0.675));
   animate("#right-div", { opacity: [0, 1] }, transition(1, 0.375));
   animate("#left-div", { opacity: [0, 1] }, transition(1, 0.5));
   animate(
