@@ -1,54 +1,54 @@
-import { animate, motion, useScroll, useTransform } from "motion/react"
-import { useEffect, useRef } from "react"
-import ShinyButton from "../ui/ShinyButton"
-import StarryHeroBackground from "./StarryBackground"
-import { PRELOADER_DURATION } from "../ui/Preloader"
+import { animate, motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef } from "react";
+import ShinyButton from "../ui/ShinyButton";
+import StarryHeroBackground from "./StarryBackground";
+import { PRELOADER_DURATION } from "../ui/Preloader";
 
 const animation = {
   opacity: [0, 1],
   y: ["100%", "0%"],
-}
+};
 
 const reverseAnimation = {
   opacity: [0, 1],
   y: ["-100%", "0%"],
-}
+};
 
 const transition = (duration = 1, delay) => {
   return {
     duration,
     delay: PRELOADER_DURATION - 0.32 + delay,
     ease: [0.76, 0, 0.24, 1],
-  }
-}
+  };
+};
 
 const handleAnimate = () => {
-  animate("#hero h1 span:first-child", animation, transition(1, 0))
-  animate("#hero h1 span:last-child", reverseAnimation, transition(1, 0.06225))
-  animate("#hero h2 span", animation, transition(1, 0.125))
-  animate("header", reverseAnimation, transition(1, 0.675))
-  animate("#right-div", { opacity: [0, 1] }, transition(1, 0.375))
-  animate("#left-div", { opacity: [0, 1] }, transition(1, 0.5))
+  animate("#hero h1 span:first-child", animation, transition(1, 0));
+  animate("#hero h1 span:last-child", reverseAnimation, transition(1, 0.06225));
+  animate("#hero h2 span", animation, transition(1, 0.125));
+  animate("header", reverseAnimation, transition(1, 0.675));
+  animate("#right-div", { opacity: [0, 1] }, transition(1, 0.375));
+  animate("#left-div", { opacity: [0, 1] }, transition(1, 0.5));
   animate(
     "#scroll-down-icon-wrapper svg path",
     { pathLength: [0, 1], opacity: [0, 1] },
     transition(1, 0.375)
-  )
-}
+  );
+};
 
 export default function Hero() {
-  const heroRef = useRef(null)
+  const heroRef = useRef(null);
 
   useEffect(() => {
-    handleAnimate()
-  }, [])
+    handleAnimate();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.25])
+  const starryBgScale = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
 
   return (
     <>
@@ -70,18 +70,20 @@ export default function Hero() {
                 fontSize: "clamp(2.5rem, 7.5vw, 8rem)",
               }}
             >
-              <motion.span className="inline-block">Emre</motion.span>{" "}
-              <motion.span className="inline-block">Gundogdu</motion.span>
+              <motion.span className="inline-block opacity-0">Emre</motion.span>{" "}
+              <motion.span className="inline-block opacity-0">
+                Gundogdu
+              </motion.span>
             </h1>
 
             <h2 className="h3 font-thin leading-none text-left uppercase tracking-tight overflow-hidden">
-              <motion.span className="inline-block">
+              <motion.span className="inline-block opacity-0">
                 Front End Developer
               </motion.span>
             </h2>
           </div>
           <div className="relative w-full flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
-            <div id="left-div" className="relative">
+            <div id="left-div" className="relative opacity-0">
               <p
                 className="w-4/5 text-left md:w-1/2 xl:w-[33%] md:text-justify font-extralight"
                 style={{
@@ -95,7 +97,7 @@ export default function Hero() {
             </div>
             <div
               id="right-div"
-              className="relative md:flex md:items-end md:justify-end"
+              className="relative md:flex md:items-end md:justify-end opacity-0"
             >
               <ShinyButton className="whitespace-nowrap">
                 Open to Work
@@ -135,5 +137,5 @@ export default function Hero() {
         </motion.div>
       </section>
     </>
-  )
+  );
 }
