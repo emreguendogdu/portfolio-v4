@@ -14,7 +14,7 @@ export const projects = [
   },
   {
     name: "Ruya Digital",
-    href: "https://ruyadigital.com/",
+    href: "https://ruyadigital.netlify.app/",
     year: 2024,
     imgSrc: "/assets/ruya-digital.webp",
     imgHash: "L36Hr|RzD+jc?dR|akf900ND-rof",
@@ -40,4 +40,4 @@ export const projects = [
     imgSrc: "/assets/letters-app.webp",
     imgHash: "LCJH]v-;~q%M00Rj00M_00%L%Mt7",
   },
-]
+];
